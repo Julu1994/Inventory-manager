@@ -64,6 +64,45 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+//Update data
+router.put("/:id", async (req, res) => {
+    try {
+        const { name, details, price, quantity, location, catagory, type } =
+            req.body;
+        const dataID = req.params.id;
+        if (!name || !price || !quantity || !type) {
+            return res.status(400).json({
+                error: "Required field is missing",
+            });
+        }
+
+        if (!dataID)
+            return res.status(400).json({
+                error: "Error! Something went wrong",
+            });
+
+        const oldData = await ProductModel.findById(dataID);
+
+        if (!oldData)
+            return res.status(400).json({
+                error: "Error! Something went wrong",
+            });
+
+        oldData.name = name;
+        oldData.details = details;
+        oldData.price = price;
+        oldData.quantity = quantity;
+        oldData.location = location;
+        oldData.catagory = catagory;
+        oldData.type = type;
+
+        const savedData = await oldData.save();
+        res.json(savedData);
+    } catch (error) {
+        res.status(500).json({ errore: "Error!! Something went worong" });
+    }
+});
+
 router.get("/router", (req, res) => {
     res.send("Hello World...");
 });
