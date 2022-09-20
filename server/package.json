@@ -9,8 +9,9 @@
   "author": "Mahamudur Jewel",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "mongoose": "^6.6.1"
   },
-  "type" : "module"
+  "type": "module"
 }

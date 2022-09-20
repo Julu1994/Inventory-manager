@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
-const id = mongoose.Schema.Types.ObjectId;
 
-const myScema = new mongoose.Schema(
+const productScema = new mongoose.Schema(
     {
-        id: {
-            type: id,
-        },
         name: {
             type: String,
         },
@@ -33,4 +29,4 @@ const myScema = new mongoose.Schema(
     }
 );
 
-export const Model = mongoose.model("model", myScema);
+export const ProductModel = mongoose.model("model", productScema);
