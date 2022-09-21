@@ -23,6 +23,9 @@ const productScema = new mongoose.Schema(
         type: {
             type: String,
         },
+        url: {
+            type: String,
+        },
     },
     {
         timestamps: true,

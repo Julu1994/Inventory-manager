@@ -15,8 +15,16 @@ router.get("/", async (req, res) => {
 //Post Data
 router.post("/", async (req, res) => {
     try {
-        const { name, details, price, quantity, location, catagory, type } =
-            req.body;
+        const {
+            name,
+            details,
+            price,
+            quantity,
+            location,
+            catagory,
+            type,
+            url,
+        } = req.body;
 
         if (!name || !price || !quantity || !type) {
             return res
@@ -32,6 +40,7 @@ router.post("/", async (req, res) => {
             location,
             catagory,
             type,
+            url,
         });
         const savedProduct = await newProduct.save();
         res.json(savedProduct);
@@ -67,8 +76,16 @@ router.delete("/:id", async (req, res) => {
 //Update data
 router.put("/:id", async (req, res) => {
     try {
-        const { name, details, price, quantity, location, catagory, type } =
-            req.body;
+        const {
+            name,
+            details,
+            price,
+            quantity,
+            location,
+            catagory,
+            type,
+            url,
+        } = req.body;
         const dataID = req.params.id;
         if (!name || !price || !quantity || !type) {
             return res.status(400).json({
@@ -95,6 +112,7 @@ router.put("/:id", async (req, res) => {
         oldData.location = location;
         oldData.catagory = catagory;
         oldData.type = type;
+        oldData.url = url;
 
         const savedData = await oldData.save();
         res.json(savedData);
