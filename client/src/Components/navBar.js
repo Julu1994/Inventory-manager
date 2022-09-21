@@ -1,11 +1,15 @@
 import React from "react";
 import {
+    Fab,
     List,
     ListItem,
     ListItemButton,
     ListItemText,
     Paper,
+    Tooltip,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
@@ -44,6 +48,19 @@ const NavBar = () => {
                         <ListItemButton component="a">
                             <ListItemText primary="🍹 Drinks" />
                         </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <Tooltip title="Add new product">
+                            <Link to="/add-product">
+                                <Fab
+                                    sx={{ ml: ".8rem" }}
+                                    size="small"
+                                    color="primary"
+                                    aria-label="add">
+                                    <AddIcon />
+                                </Fab>
+                            </Link>
+                        </Tooltip>
                     </ListItem>
                 </List>
             </Paper>
