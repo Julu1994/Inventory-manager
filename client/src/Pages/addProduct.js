@@ -12,20 +12,46 @@ import SendIcon from "@mui/icons-material/Send";
 
 const type = [
     {
-        value: "Product type",
+        value: "regular",
         label: "Regular",
     },
     {
-        value: "Product type",
+        value: "discount",
         label: "Discount",
+    },
+];
+const catagory = [
+    {
+        value: "fruits",
+        label: "Fruits",
+    },
+    {
+        value: "vegetables",
+        label: "Vegetables",
+    },
+    {
+        value: "drinks",
+        label: "Drinks",
+    },
+    {
+        value: "bread",
+        label: "Bread",
+    },
+    {
+        value: "dairy",
+        label: "Dairy",
     },
 ];
 
 const AddProduct = () => {
     const [types, setTypes] = React.useState("regular");
+    const [catagories, setCatagories] = React.useState("fruits");
 
-    const handleChange = (event) => {
+    const handleTypes = (event) => {
         setTypes(event.target.value);
+    };
+    const handleCatagories = (event) => {
+        setCatagories(event.target.value);
     };
 
     return (
@@ -47,7 +73,7 @@ const AddProduct = () => {
 
                 <div>
                     <TextField
-                        sx={{ width: "95%" }}
+                        sx={{ width: "95%", mt: "1rem" }}
                         id="standard-basic"
                         label="Details"
                         variant="standard"
@@ -55,7 +81,7 @@ const AddProduct = () => {
                 </div>
                 <div>
                     <TextField
-                        sx={{ width: "95%" }}
+                        sx={{ width: "95%", mt: "1rem" }}
                         id="standard-basic"
                         label="Price"
                         variant="standard"
@@ -63,7 +89,7 @@ const AddProduct = () => {
                 </div>
                 <div>
                     <TextField
-                        sx={{ width: "95%" }}
+                        sx={{ width: "95%", mt: "1rem" }}
                         id="standard-basic"
                         label="Quantity"
                         variant="standard"
@@ -71,7 +97,7 @@ const AddProduct = () => {
                 </div>
                 <div>
                     <TextField
-                        sx={{ width: "95%" }}
+                        sx={{ width: "95%", mt: "1rem" }}
                         id="standard-basic"
                         label="Location"
                         variant="standard"
@@ -79,22 +105,29 @@ const AddProduct = () => {
                 </div>
                 <div>
                     <TextField
-                        sx={{ width: "95%" }}
+                        sx={{ width: "95%", mt: "1rem" }}
                         id="standard-basic"
                         label="Catagory"
+                        select
                         variant="standard"
-                    />
+                        value={catagories}
+                        onChange={handleCatagories}>
+                        {catagory.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </div>
                 <div>
                     <TextField
-                        sx={{ width: "95%" }}
+                        sx={{ width: "95%", mt: "1rem" }}
                         id="standard-basic"
                         select
-                        label="Select"
-                        value={types}
+                        label="Type"
                         variant="standard"
-                        onChange={handleChange}
-                        helperText="Please select type">
+                        value={types}
+                        onChange={handleTypes}>
                         {type.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
                                 {option.label}
