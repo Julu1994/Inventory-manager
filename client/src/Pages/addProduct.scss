@@ -1,0 +1,20 @@
+.add {
+    &-header {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    &-form {
+        padding: 2rem;
+        width: 40%;
+        margin: 2rem auto;
+        background-color: rgb(244, 244, 244);
+    }
+
+}
+
+@media (max-width: 900) {
+    .add-form {
+        width: 70%;
+    }
+}
