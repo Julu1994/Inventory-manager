@@ -1,9 +1,20 @@
 import "./addProduct.scss";
 import React from "react";
-import { Button, MenuItem, TextField, Typography } from "@mui/material";
-//import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import {
+    Button,
+    IconButton,
+    MenuItem,
+    TextField,
+    Typography,
+    Badge,
+} from "@mui/material";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
+import { storage } from "../Storage/fireStorage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import ImageIcon from "@mui/icons-material/Image";
+import toast from "react-hot-toast";
 
 const type = [
     {
@@ -46,7 +57,30 @@ const AddProduct = () => {
     const [price, setPrice] = React.useState(0);
     const [quantity, setQuantity] = React.useState(0);
     const [location, setLocation] = React.useState("");
-    //const [url, setUrl] = React.useState("");
+    const [url, setUrl] = React.useState("");
+
+    const fileHandler = (event) => {
+        const imgFile = event.target.files[0];
+        const imgRef = ref(storage, `Images/${imgFile.name}`);
+        const uploadTask = uploadBytesResumable(imgRef, imgFile);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                toast.success(`Upload completed ${progress} %`);
+            },
+            () => {
+                toast.error("Error! Something went wrong");
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setUrl(downloadURL);
+                });
+            }
+        );
+    };
 
     const handleTypes = (event) => {
         setTypes(event.target.value);
@@ -64,8 +98,20 @@ const AddProduct = () => {
             location: location ? location : undefined,
             type: types ? types : undefined,
             catagory: catagories ? catagories : undefined,
+            url: url ? url : undefined,
         };
-        await axios.post("http://localhost:4000/", newProduct);
+        try {
+            await axios.post("http://localhost:4000/", newProduct);
+            setName("");
+            setDetails("");
+            setPrice("");
+            setQuantity("");
+            setLocation("");
+            setUrl("");
+            toast.success("Successfully added the item");
+        } catch {
+            toast.error("Error! Something went wrong");
+        }
     };
 
     return (
@@ -159,15 +205,36 @@ const AddProduct = () => {
                         ))}
                     </TextField>
                 </div>
-                {/* <div>
-                    <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="label">
-                        <input hidden accept="image/*" type="file" />
-                        <AddPhotoAlternateIcon />
-                    </IconButton>
-                </div> */}
+                <div>
+                    {url && (
+                        <IconButton
+                            sx={{ mt: "1rem" }}
+                            color="primary"
+                            aria-label="upload picture"
+                            component="label"
+                            onClick={() => setUrl("")}>
+                            <Badge badgeContent={"X"} color="error">
+                                <ImageIcon fontSize="large" color="secondary" />
+                            </Badge>
+                        </IconButton>
+                    )}
+                    {!url && (
+                        <IconButton
+                            sx={{ mt: "1rem" }}
+                            color="primary"
+                            aria-label="upload picture"
+                            component="label">
+                            <input
+                                hidden
+                                accept="image/*"
+                                type="file"
+                                onChange={fileHandler}
+                            />
+
+                            <AddPhotoAlternateIcon fontSize="large" />
+                        </IconButton>
+                    )}
+                </div>
                 <div style={{ textAlign: "center" }}>
                     <Button
                         type="submit"
