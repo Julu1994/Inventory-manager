@@ -1,14 +1,9 @@
 import "./addProduct.scss";
 import React from "react";
-import {
-    Button,
-    IconButton,
-    MenuItem,
-    TextField,
-    Typography,
-} from "@mui/material";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { Button, MenuItem, TextField, Typography } from "@mui/material";
+//import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
 
 const type = [
     {
@@ -46,12 +41,31 @@ const catagory = [
 const AddProduct = () => {
     const [types, setTypes] = React.useState("regular");
     const [catagories, setCatagories] = React.useState("fruits");
+    const [name, setName] = React.useState("");
+    const [details, setDetails] = React.useState("");
+    const [price, setPrice] = React.useState(0);
+    const [quantity, setQuantity] = React.useState(0);
+    const [location, setLocation] = React.useState("");
+    //const [url, setUrl] = React.useState("");
 
     const handleTypes = (event) => {
         setTypes(event.target.value);
     };
     const handleCatagories = (event) => {
         setCatagories(event.target.value);
+    };
+    const addProduct = async (event) => {
+        event.preventDefault();
+        const newProduct = {
+            name: name ? name : undefined,
+            details: details ? details : undefined,
+            price: price ? price : undefined,
+            quantity: quantity ? quantity : undefined,
+            location: location ? location : undefined,
+            type: types ? types : undefined,
+            catagory: catagories ? catagories : undefined,
+        };
+        await axios.post("http://localhost:4000/", newProduct);
     };
 
     return (
@@ -61,13 +75,15 @@ const AddProduct = () => {
                     Add new product
                 </Typography>
             </div>
-            <form className="add-form">
+            <form onSubmit={addProduct} className="add-form">
                 <div>
                     <TextField
                         sx={{ width: "95%" }}
                         id="standard-basic"
                         label="Product Name"
                         variant="standard"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
 
@@ -77,6 +93,8 @@ const AddProduct = () => {
                         id="standard-basic"
                         label="Details"
                         variant="standard"
+                        value={details}
+                        onChange={(e) => setDetails(e.target.value)}
                     />
                 </div>
                 <div>
@@ -85,6 +103,8 @@ const AddProduct = () => {
                         id="standard-basic"
                         label="Price"
                         variant="standard"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
                 <div>
@@ -93,6 +113,8 @@ const AddProduct = () => {
                         id="standard-basic"
                         label="Quantity"
                         variant="standard"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
                     />
                 </div>
                 <div>
@@ -101,6 +123,8 @@ const AddProduct = () => {
                         id="standard-basic"
                         label="Location"
                         variant="standard"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
                     />
                 </div>
                 <div>
@@ -135,7 +159,7 @@ const AddProduct = () => {
                         ))}
                     </TextField>
                 </div>
-                <div>
+                {/* <div>
                     <IconButton
                         color="primary"
                         aria-label="upload picture"
@@ -143,9 +167,12 @@ const AddProduct = () => {
                         <input hidden accept="image/*" type="file" />
                         <AddPhotoAlternateIcon />
                     </IconButton>
-                </div>
+                </div> */}
                 <div style={{ textAlign: "center" }}>
-                    <Button variant="outlined" endIcon={<SendIcon />}>
+                    <Button
+                        type="submit"
+                        variant="outlined"
+                        endIcon={<SendIcon />}>
                         Submit
                     </Button>
                 </div>
