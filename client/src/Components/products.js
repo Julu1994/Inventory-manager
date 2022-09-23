@@ -19,6 +19,7 @@ const Products = () => {
                 return (
                     <Grid item xs={6} lg={1.5} key={item._id}>
                         <ProductCard
+                            id={item._id}
                             name={item.name}
                             price={item.price}
                             quantity={item.quamtity}

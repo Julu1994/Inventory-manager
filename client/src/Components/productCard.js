@@ -6,8 +6,15 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { CardActionArea, CardActions, IconButton } from "@mui/material";
+import axios from "axios";
 
-const ProductCard = ({ name, quantity, price, location }) => {
+const ProductCard = ({ name, quantity, price, location, id }) => {
+    const deleteProduct = async () => {
+        await axios.delete(`http://localhost:4000/${id}`);
+    };
+    const editProduct = async () => {
+        
+    }
     return (
         <Card sx={{ maxWidth: 145, mt: "1rem" }}>
             <CardActionArea>
@@ -51,7 +58,10 @@ const ProductCard = ({ name, quantity, price, location }) => {
                     padding: "0",
                     justifyContent: "end",
                 }}>
-                <IconButton size="small" aria-label="delete">
+                <IconButton
+                    size="small"
+                    aria-label="delete"
+                    onClick={deleteProduct}>
                     <DeleteIcon fontSize="inherit" />
                 </IconButton>
                 <IconButton size="small" aria-label="Edit">

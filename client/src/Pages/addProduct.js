@@ -1,13 +1,7 @@
 import "./addProduct.scss";
 import React from "react";
-import {
-    Button,
-    IconButton,
-    MenuItem,
-    TextField,
-    Typography,
-    Badge,
-} from "@mui/material";
+import { TextField, Typography, Badge } from "@mui/material";
+import { Button, IconButton, MenuItem } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
@@ -15,39 +9,8 @@ import { storage } from "../Storage/fireStorage";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import ImageIcon from "@mui/icons-material/Image";
 import toast from "react-hot-toast";
-
-const type = [
-    {
-        value: "regular",
-        label: "Regular",
-    },
-    {
-        value: "discount",
-        label: "Discount",
-    },
-];
-const catagory = [
-    {
-        value: "fruits",
-        label: "Fruits",
-    },
-    {
-        value: "vegetables",
-        label: "Vegetables",
-    },
-    {
-        value: "drinks",
-        label: "Drinks",
-    },
-    {
-        value: "bread",
-        label: "Bread",
-    },
-    {
-        value: "dairy",
-        label: "Dairy",
-    },
-];
+import { type } from "./inputOption";
+import { catagory } from "./inputOption";
 
 const AddProduct = () => {
     const [types, setTypes] = React.useState("regular");
