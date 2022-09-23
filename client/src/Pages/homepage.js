@@ -3,8 +3,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import NavBar from "../Components/navBar";
 import Products from "../Components/products";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
+    const toggle = useSelector((state) => state.toggleEdit.toggle);
+    console.log(toggle);
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>

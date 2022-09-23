@@ -11,16 +11,30 @@ import ImageIcon from "@mui/icons-material/Image";
 import toast from "react-hot-toast";
 import { type } from "./inputOption";
 import { catagory } from "./inputOption";
+import { useDispatch, useSelector } from "react-redux";
+import { editActions } from "../Redux/Features/toggleSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
+    const toggle = useSelector((state) => state.toggleEdit.toggle);
+    const inputEdit = useSelector((state) => state.editProductInfo.data);
     const [types, setTypes] = React.useState("regular");
     const [catagories, setCatagories] = React.useState("fruits");
-    const [name, setName] = React.useState("");
-    const [details, setDetails] = React.useState("");
-    const [price, setPrice] = React.useState(0);
-    const [quantity, setQuantity] = React.useState(0);
-    const [location, setLocation] = React.useState("");
-    const [url, setUrl] = React.useState("");
+    const [name, setName] = React.useState(toggle ? inputEdit.name : "");
+    const [details, setDetails] = React.useState(
+        toggle ? inputEdit.details : ""
+    );
+    const [price, setPrice] = React.useState(toggle ? inputEdit.price : 0);
+    const [quantity, setQuantity] = React.useState(
+        toggle ? inputEdit.quantity : 0
+    );
+    const [location, setLocation] = React.useState(
+        toggle ? inputEdit.location : ""
+    );
+    const [url, setUrl] = React.useState(toggle ? inputEdit.url : "");
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const fileHandler = (event) => {
         const imgFile = event.target.files[0];
@@ -51,18 +65,19 @@ const AddProduct = () => {
     const handleCatagories = (event) => {
         setCatagories(event.target.value);
     };
+
+    const newProduct = {
+        name: name ? name : undefined,
+        details: details ? details : undefined,
+        price: price ? price : undefined,
+        quantity: quantity ? quantity : undefined,
+        location: location ? location : undefined,
+        type: types ? types : undefined,
+        catagory: catagories ? catagories : undefined,
+        url: url ? url : undefined,
+    };
     const addProduct = async (event) => {
         event.preventDefault();
-        const newProduct = {
-            name: name ? name : undefined,
-            details: details ? details : undefined,
-            price: price ? price : undefined,
-            quantity: quantity ? quantity : undefined,
-            location: location ? location : undefined,
-            type: types ? types : undefined,
-            catagory: catagories ? catagories : undefined,
-            url: url ? url : undefined,
-        };
         try {
             await axios.post("http://localhost:4000/", newProduct);
             setName("");
@@ -76,15 +91,35 @@ const AddProduct = () => {
             toast.error("Error! Something went wrong");
         }
     };
+    const editProduct = async (event) => {
+        event.preventDefault();
+        await axios.put(`http://localhost:4000/${inputEdit.id}`, newProduct);
+        dispatch(editActions.editToggle());
+        navigate("/");
+    };
 
     return (
         <div className="add">
             <div className="add-header">
-                <Typography gutterBottom variant="h4" color="text.secondary">
-                    Add new product
-                </Typography>
+                {!toggle ? (
+                    <Typography
+                        gutterBottom
+                        variant="h4"
+                        color="text.secondary">
+                        Add new product
+                    </Typography>
+                ) : (
+                    <Typography
+                        gutterBottom
+                        variant="h4"
+                        color="text.secondary">
+                        Edit Product
+                    </Typography>
+                )}
             </div>
-            <form onSubmit={addProduct} className="add-form">
+            <form
+                onSubmit={!toggle ? addProduct : editProduct}
+                className="add-form">
                 <div>
                     <TextField
                         sx={{ width: "95%" }}
@@ -199,12 +234,21 @@ const AddProduct = () => {
                     )}
                 </div>
                 <div style={{ textAlign: "center" }}>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        endIcon={<SendIcon />}>
-                        Submit
-                    </Button>
+                    {!toggle ? (
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            endIcon={<SendIcon />}>
+                            Submit
+                        </Button>
+                    ) : (
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            endIcon={<SendIcon />}>
+                            Save Edit
+                        </Button>
+                    )}
                 </div>
             </form>
         </div>

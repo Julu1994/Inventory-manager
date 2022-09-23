@@ -12,7 +12,6 @@ const Products = () => {
     React.useEffect(() => {
         getProducts();
     }, []);
-    console.log(products);
     return (
         <>
             {products?.map((item) => {
@@ -20,10 +19,13 @@ const Products = () => {
                     <Grid item xs={6} lg={1.5} key={item._id}>
                         <ProductCard
                             id={item._id}
+                            details={item.details}
                             name={item.name}
                             price={item.price}
-                            quantity={item.quamtity}
+                            quantity={item.quantity}
                             location={item.location}
+                            catagory={item.catagory}
+                            type={item.type}
                         />
                     </Grid>
                 );

@@ -7,14 +7,35 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { CardActionArea, CardActions, IconButton } from "@mui/material";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { editActions } from "../Redux/Features/toggleSlice";
+import { useNavigate } from "react-router-dom";
+import { editDataAction } from "../Redux/Features/editDataSlice";
 
-const ProductCard = ({ name, quantity, price, location, id }) => {
+const ProductCard = (props) => {
+    const { name, details, quantity, price, location, catagory, type, id } =
+        props;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const deleteProduct = async () => {
         await axios.delete(`http://localhost:4000/${id}`);
     };
-    const editProduct = async () => {
-        
-    }
+    const editProduct = () => {
+        dispatch(editActions.editToggle());
+        dispatch(
+            editDataAction.editProduct({
+                name,
+                details,
+                quantity,
+                price,
+                location,
+                id,
+                catagory,
+                type,
+            })
+        );
+        navigate("/add-product");
+    };
     return (
         <Card sx={{ maxWidth: 145, mt: "1rem" }}>
             <CardActionArea>
@@ -64,7 +85,11 @@ const ProductCard = ({ name, quantity, price, location, id }) => {
                     onClick={deleteProduct}>
                     <DeleteIcon fontSize="inherit" />
                 </IconButton>
-                <IconButton size="small" aria-label="Edit">
+
+                <IconButton
+                    size="small"
+                    aria-label="Edit"
+                    onClick={editProduct}>
                     <EditIcon fontSize="inherit" />
                 </IconButton>
             </CardActions>

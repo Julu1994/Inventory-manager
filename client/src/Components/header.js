@@ -7,8 +7,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { editActions } from "../Redux/Features/toggleSlice";
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const editToggle = () => {
+        dispatch(editActions.ToggleFalse());
+    };
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -22,6 +28,7 @@ const Header = () => {
                         <MenuIcon />
                     </IconButton>
                     <Link
+                        onClick={editToggle}
                         to="/"
                         style={{
                             flexGrow: 1,

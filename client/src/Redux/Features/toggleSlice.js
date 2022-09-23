@@ -11,6 +11,9 @@ export const editSlice = createSlice({
         editToggle(state) {
             state.toggle = !state.toggle;
         },
+        ToggleFalse(state) {
+            state.toggle = false;
+        },
     },
 });
 
