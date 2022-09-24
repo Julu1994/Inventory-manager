@@ -45,7 +45,7 @@ const AddProduct = () => {
             }
         );
     };
-
+    //All the onChange finctions
     const handleTypes = (event) => {
         setTypes(event.target.value);
     };

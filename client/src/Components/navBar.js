@@ -13,8 +13,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
-        <div>
-            {" "}
+        <div style={{ margin: "0" }}>
             <Paper>
                 <List sx={{ ml: "2rem" }}>
                     <ListItem disablePadding>
