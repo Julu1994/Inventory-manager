@@ -3,14 +3,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { CardActionArea, CardActions, IconButton } from "@mui/material";
+import { CardActionArea, CardActions } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { editActions } from "../Redux/Features/toggleSlice";
 import { useNavigate } from "react-router-dom";
 import { editDataAction } from "../Redux/Features/editDataSlice";
+import CardAction from "./SubComponents/CardAction";
 
 const ProductCard = (props) => {
     const { name, details, quantity, price, location, catagory, type, id } =
@@ -79,19 +78,7 @@ const ProductCard = (props) => {
                     padding: "0",
                     justifyContent: "end",
                 }}>
-                <IconButton
-                    size="small"
-                    aria-label="delete"
-                    onClick={deleteProduct}>
-                    <DeleteIcon fontSize="inherit" />
-                </IconButton>
-
-                <IconButton
-                    size="small"
-                    aria-label="Edit"
-                    onClick={editProduct}>
-                    <EditIcon fontSize="inherit" />
-                </IconButton>
+                <CardAction editItem={editProduct} deleteItem={deleteProduct} />
             </CardActions>
         </Card>
     );
