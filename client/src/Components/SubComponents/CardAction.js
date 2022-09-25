@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Link } from "react-router-dom";
 
 const CardAction = ({ editItem, deleteItem }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -35,15 +36,33 @@ const CardAction = ({ editItem, deleteItem }) => {
                 MenuListProps={{
                     "aria-labelledby": "basic-button",
                 }}>
-                <MenuItem onClick={handleClose}>Inbound</MenuItem>
-                <MenuItem onClick={handleClose}>Shrink</MenuItem>
-                <MenuItem
-                    onClick={() => {
-                        handleClose();
-                        editItem();
-                    }}>
-                    Edit Item
-                </MenuItem>
+                <Link
+                    to="inbound"
+                    style={{ textDecoration: "none", color: "inherit" }}>
+                    <MenuItem
+                        onClick={() => {
+                            handleClose();
+                            editItem();
+                        }}>
+                        Inbound
+                    </MenuItem>
+                </Link>
+                <Link
+                    to="shrink"
+                    style={{ textDecoration: "none", color: "inherit" }}>
+                    <MenuItem onClick={handleClose}>Shrink</MenuItem>
+                </Link>
+                <Link
+                    to="/add-product"
+                    style={{ textDecoration: "none", color: "inherit" }}>
+                    <MenuItem
+                        onClick={() => {
+                            handleClose();
+                            editItem();
+                        }}>
+                        Edit Item
+                    </MenuItem>
+                </Link>
                 <MenuItem
                     onClick={() => {
                         handleClose();

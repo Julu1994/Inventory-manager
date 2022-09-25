@@ -7,7 +7,7 @@ import { CardActionArea, CardActions } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { editActions } from "../Redux/Features/toggleSlice";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { editDataAction } from "../Redux/Features/editDataSlice";
 import CardAction from "./SubComponents/CardAction";
 
@@ -15,7 +15,7 @@ const ProductCard = (props) => {
     const { name, details, quantity, price, location, catagory, type, id } =
         props;
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const deleteProduct = async () => {
         await axios.delete(`http://localhost:4000/${id}`);
     };
@@ -33,7 +33,7 @@ const ProductCard = (props) => {
                 type,
             })
         );
-        navigate("/add-product");
+        // navigate("/add-product");
     };
     return (
         <Card sx={{ maxWidth: 145, mt: "1rem" }}>
