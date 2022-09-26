@@ -2,16 +2,21 @@ import React from "react";
 import ProductCard from "./productCard";
 import axios from "axios";
 import { Grid } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { productsAction } from "../Redux/Features/productsSlice";
 
 const Products = () => {
-    const [products, setProducts] = React.useState([]);
-    const getProducts = async () => {
-        const res = await axios.get("http://localhost:4000/");
-        setProducts(res.data);
-    };
+    const dispatch = useDispatch();
+    const products = useSelector((state) => state.products.items);
+
     React.useEffect(() => {
+        const getProducts = async () => {
+            const res = await axios.get("http://localhost:4000/");
+            dispatch(productsAction.storeProducts(res.data));
+        };
         getProducts();
-    }, []);
+        console.log("rendered");
+    }, [dispatch]);
     return (
         <>
             {products?.map((item) => {

@@ -39,6 +39,7 @@ const Shrink = () => {
                 );
                 toast.success(`${item} items have been removed`);
                 setItem(0);
+                setReason("quality");
             }
         } catch {
             toast.error("Error! Something went wrong");

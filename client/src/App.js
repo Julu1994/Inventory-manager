@@ -4,6 +4,8 @@ import Homepage from "./Pages/homepage";
 import AddProduct from "./Pages/addProduct";
 import Inbound from "./Pages/inbound";
 import Shrink from "./Pages/shrink";
+import Login from "./Pages/login";
+import Register from "./Pages/register";
 function App() {
     return (
         <Router>
@@ -13,6 +15,8 @@ function App() {
                 <Route path="/add-product" element={<AddProduct />} />
                 <Route path="/inbound" element={<Inbound />} />
                 <Route path="/shrink" element={<Shrink />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
         </Router>
     );

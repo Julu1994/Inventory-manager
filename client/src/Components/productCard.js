@@ -7,17 +7,39 @@ import { CardActionArea, CardActions } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { editActions } from "../Redux/Features/toggleSlice";
-//import { useNavigate } from "react-router-dom";
 import { editDataAction } from "../Redux/Features/editDataSlice";
 import CardAction from "./SubComponents/CardAction";
+import Notiflix from "notiflix";
+import { productsAction } from "../Redux/Features/productsSlice";
 
 const ProductCard = (props) => {
     const { name, details, quantity, price, location, catagory, type, id } =
         props;
     const dispatch = useDispatch();
-    //const navigate = useNavigate();
+
+    const deleteConfirm = () => {
+        Notiflix.Confirm.show(
+            "Delete Confirm",
+            "Are you sure about deleting the product?",
+            "Delete",
+            "Cancel",
+            function okCb() {
+                deleteProduct();
+            },
+
+            {
+                width: "20rem",
+                borderRadius: "8px",
+            }
+        );
+    };
     const deleteProduct = async () => {
         await axios.delete(`http://localhost:4000/${id}`);
+        const getProducts = async () => {
+            const res = await axios.get("http://localhost:4000/");
+            dispatch(productsAction.storeProducts(res.data));
+        };
+        getProducts();
     };
     const editProduct = () => {
         dispatch(editActions.editToggle());
@@ -78,7 +100,7 @@ const ProductCard = (props) => {
                     padding: "0",
                     justifyContent: "end",
                 }}>
-                <CardAction editItem={editProduct} deleteItem={deleteProduct} />
+                <CardAction editItem={editProduct} deleteItem={deleteConfirm} />
             </CardActions>
         </Card>
     );
