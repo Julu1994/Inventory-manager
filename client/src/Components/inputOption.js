@@ -30,3 +30,22 @@ export const catagory = [
         label: "Dairy",
     },
 ];
+
+export const shrinkReasons = [
+    {
+        value: "quality",
+        label: "Quality issue",
+    },
+    {
+        value: "expiry",
+        label: "Date expired",
+    },
+    {
+        value: "disposal",
+        label: "Didn't meet quality criteria in visual inspection",
+    },
+    {
+        value: "mistake",
+        label: "Added extra items by mistake",
+    },
+];

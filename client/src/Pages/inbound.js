@@ -24,12 +24,16 @@ const Inbound = () => {
     const inboundItem = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(
-                `http://localhost:4000/${existingItem.id}`,
-                product
-            );
-            setItem(0);
-            toast.success(`${item} new items has been added`);
+            if (item < 1) {
+                toast.error("Please write a valid number");
+            } else {
+                await axios.put(
+                    `http://localhost:4000/${existingItem.id}`,
+                    product
+                );
+                toast.success(`${item} items have been added`);
+                setItem(0);
+            }
         } catch {
             toast.error("Error! Something went wrong");
         }

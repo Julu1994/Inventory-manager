@@ -50,7 +50,13 @@ const CardAction = ({ editItem, deleteItem }) => {
                 <Link
                     to="shrink"
                     style={{ textDecoration: "none", color: "inherit" }}>
-                    <MenuItem onClick={handleClose}>Shrink</MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            editItem();
+                            handleClose();
+                        }}>
+                        Shrink
+                    </MenuItem>
                 </Link>
                 <Link
                     to="/add-product"
