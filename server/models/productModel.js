@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const productScema = new mongoose.Schema(
     {
@@ -25,6 +26,10 @@ const productScema = new mongoose.Schema(
         },
         url: {
             type: String,
+        },
+        user: {
+            type: ObjectId,
+            required: true,
         },
     },
     {

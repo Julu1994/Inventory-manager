@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import { router } from "./routers/productRouter.js";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import { authRouter } from "./routers/authRouter.js";
 const app = express();
 dotenv.config();
 
@@ -12,7 +14,9 @@ app.use(
         orgin: " http://localhost:3000",
     })
 );
+app.use(cookieParser());
 app.use("/", router);
+app.use("/auth", authRouter);
 mongoose.connect(process.env.DB_LINK, (err) => {
     if (err) return console.error(err);
     console.log("Succcessfully connected to MongoDB");

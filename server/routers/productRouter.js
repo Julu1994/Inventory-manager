@@ -1,11 +1,12 @@
 import express from "express";
+import { auth } from "../middleware/auth.js";
 import { ProductModel } from "../models/productModel.js";
 export const router = express.Router();
 
 //Get Data
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
     try {
-        const data = await ProductModel.find();
+        const data = await ProductModel.find({ user: req.user });
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: "Not found data!" });
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 //Post Data
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
     try {
         const {
             name,
@@ -41,6 +42,7 @@ router.post("/", async (req, res) => {
             catagory,
             type,
             url,
+            user: req.user,
         });
         const savedProduct = await newProduct.save();
         res.json(savedProduct);
@@ -50,7 +52,7 @@ router.post("/", async (req, res) => {
 });
 
 // Delete Data
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
     try {
         const productID = req.params.id;
 
@@ -66,6 +68,12 @@ router.delete("/:id", async (req, res) => {
                 error: "Sorry!!! not found anything to delete....",
             });
 
+        if (existedProduct.user.toString() !== req.user) {
+            return res.status(400).json({
+                error: "Error! Unauthorised action",
+            });
+        }
+
         await existedProduct.delete();
         res.json(existedProduct);
     } catch (error) {
@@ -74,7 +82,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //Update data
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     try {
         const {
             name,
@@ -104,6 +112,11 @@ router.put("/:id", async (req, res) => {
             return res.status(400).json({
                 error: "Error! Something went wrong",
             });
+        if (oldData.user.toString() !== req.user) {
+            return res.status(400).json({
+                error: "Error! Unauthorised action",
+            });
+        }
 
         oldData.name = name;
         oldData.details = details;

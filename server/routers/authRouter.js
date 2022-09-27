@@ -1,10 +1,8 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { User } from "../models/authModel.js";
 export const authRouter = express.Router();
-dotenv.config();
 
 authRouter.post("/", async (req, res) => {
     try {
@@ -31,12 +29,10 @@ authRouter.post("/", async (req, res) => {
             });
 
         //passsword
-
         const salt = await bcrypt.genSalt();
         const H_password = await bcrypt.hash(password, salt);
 
         //Adding User
-
         const newUser = new User({
             name,
             email,
@@ -46,16 +42,19 @@ authRouter.post("/", async (req, res) => {
         const addingUser = await newUser.save();
 
         //JWT Token
+        const secretKey = process.env.SE_KEY;
 
         const jToken = jwt.sign(
             {
                 id: addingUser._id,
             },
-            process.env.JWT_TOKEN
+            secretKey
         );
 
-        res.cookie("token", jToken, { httpOnly: true }).send(); //The most importent security thing  //__httpOnly :true__//
+        res.cookie("token", jToken, { httpOnly: true }).send(); //****/The most importent security thing  //httpOnly :true//****///
     } catch (error) {
-        res.status(500).json({ errorMessage: "Sorry!!! not found your data" });
+        res.status(500).json({
+            errorMessage: "Error! Something went went wrong!",
+        });
     }
 });
