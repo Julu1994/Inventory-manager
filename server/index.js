@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { router } from "./routers/expressRouter.js";
+import { router } from "./routers/productRouter.js";
 import dotenv from "dotenv";
 import cors from "cors";
 const app = express();
