@@ -6,6 +6,7 @@ export const router = express.Router();
 //Get Data
 router.get("/", auth, async (req, res) => {
     try {
+        console.log(req.user);
         const data = await ProductModel.find({ user: req.user });
         res.json(data);
     } catch (error) {

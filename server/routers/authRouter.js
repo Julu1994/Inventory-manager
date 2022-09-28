@@ -72,23 +72,26 @@ authRouter.post("/login", async (req, res) => {
                 error: "Wrong User Information",
             });
 
-        realPassword = await bcrypt.compare(password, existingEmail.H_password);
-
+        const realPassword = await bcrypt.compare(
+            password,
+            existingEmail.H_password
+        );
         if (!realPassword)
             return res.status(400).json({
-                error: "Wrong User Information",
+                errorMessage: "Wrong User Information",
             });
 
         //JWT Token
+        const Key = process.env.SE_KEY;
 
-        const jToken = jwt.sign(
+        const jsonToken = jwt.sign(
             {
                 id: existingEmail._id,
             },
-            process.env.SE_KEY
+            Key
         );
 
-        res.cookie("token", jToken, { httpOnly: true }).send(); //importent security: httpOnly :true//!!!
+        res.cookie("token", jsonToken, { httpOnly: true }).send(); //importent security: httpOnly :true//!!!
     } catch (error) {
         res.status(500).json({ error: "Error! Something went wrong!!" });
     }
@@ -99,7 +102,7 @@ authRouter.get("/loogedIn", (req, res) => {
         const token = req.cookies.token;
         if (!token) return res.json(null);
 
-        const validatedUser = jwtToken.verify(token, process.env.JWT_TOKEN);
+        const validatedUser = jwtToken.verify(token, process.env.SE_KEY);
         res.json({
             id: validatedUser.id,
         });

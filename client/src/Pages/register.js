@@ -5,9 +5,38 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { Notify } from "notiflix";
 
 const Register = () => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirm, setConfirm] = useState("");
+    const navigate = useNavigate();
+
+    const handleRegister = async (event) => {
+        event.preventDefault();
+        const data = {
+            name,
+            email,
+            password,
+            confirm,
+        };
+        try {
+            await axios.post("http://localhost:4000/auth", data);
+            Notify.success("Successfully Registered");
+            navigate("/");
+            setName("");
+            setEmail("");
+            setPassword("");
+            setConfirm("");
+        } catch {
+            Notify.failure("Error! Something went wrong!");
+        }
+    };
     return (
         <div className="reg">
             <Typography
@@ -21,23 +50,39 @@ const Register = () => {
                     sx={{ textAlign: "center", mt: "1rem" }}>
                     Register
                 </Typography>
-                <form>
+                <form onSubmit={handleRegister}>
                     <CardContent sx={{ textAlign: "center" }}>
                         <TextField
-                            id="standard-basic"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            id="standard"
                             label="Name"
                             variant="standard"
                             sx={{ width: "100%", mt: "1rem" }}
                         />
                         <TextField
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             id="standard-basic"
                             variant="standard"
                             label="Email"
                             sx={{ width: "100%", mt: "1rem" }}
                         />
                         <TextField
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                             id="standard-password-input"
                             label="Password"
+                            type="password"
+                            autoComplete="current-password"
+                            variant="standard"
+                            sx={{ width: "100%", mt: "1rem" }}
+                        />
+                        <TextField
+                            onChange={(e) => setConfirm(e.target.value)}
+                            value={confirm}
+                            id="confirm-password-input"
+                            label="Confirm password"
                             type="password"
                             autoComplete="current-password"
                             variant="standard"
@@ -58,14 +103,25 @@ const Register = () => {
                         </Button>
                     </CardActions>
                 </form>
-                <p style={{ fontSize: ".8rem", paddingBottom: "1rem" }}>
-                    Already have an account ?
-                    <div>
-                        <Link to="/" style={{ textDecoration: "none" }}>
-                            Login here
+                <div>
+                    <p
+                        style={{
+                            fontSize: ".8rem",
+                            paddingLeft: "1rem",
+                        }}>
+                        Don't have an account ?
+                    </p>
+                    <p
+                        style={{
+                            fontSize: ".8rem",
+                            paddingBottom: "1rem",
+                            paddingLeft: "1rem",
+                        }}>
+                        <Link to="/register" style={{ textDecoration: "none" }}>
+                            Register here
                         </Link>
-                    </div>
-                </p>
+                    </p>
+                </div>
             </Card>
         </div>
     );

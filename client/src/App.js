@@ -6,6 +6,9 @@ import Inbound from "./Pages/inbound";
 import Shrink from "./Pages/shrink";
 import Login from "./Pages/login";
 import Register from "./Pages/register";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 function App() {
     return (
         <Router>

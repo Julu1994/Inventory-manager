@@ -5,9 +5,31 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Notify } from "notiflix";
 
 const Login = () => {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const navigate = useNavigate();
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        const data = {
+            email,
+            password,
+        };
+        try {
+            await axios.post("http://localhost:4000/auth/login", data);
+            Notify.success("Successful login");
+            navigate("/");
+            setEmail("");
+            setPassword("");
+        } catch {
+            Notify.failure("Error! Login Failed!");
+        }
+    };
     return (
         <div className="log">
             <Typography
@@ -16,7 +38,7 @@ const Login = () => {
                 Inventory Manager
             </Typography>
             <Card sx={{ minWidth: 275 }}>
-                <form>
+                <form onSubmit={handleLogin}>
                     <Typography
                         variant="h5"
                         sx={{ textAlign: "center", mt: "1rem" }}>
@@ -24,12 +46,16 @@ const Login = () => {
                     </Typography>
                     <CardContent sx={{ textAlign: "center" }}>
                         <TextField
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             id="standard-basic"
                             variant="standard"
                             label="Email"
                             sx={{ width: "100%", mt: "1rem" }}
                         />
                         <TextField
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             id="standard-password-input"
                             label="Password"
                             type="password"
