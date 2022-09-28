@@ -97,17 +97,17 @@ authRouter.post("/login", async (req, res) => {
     }
 });
 
-authRouter.get("/loogedIn", (req, res) => {
+authRouter.get("/loggedIn", (req, res) => {
     try {
         const token = req.cookies.token;
-        if (!token) return res.json(null);
+        if (!token) return res.json({ err: "no token" });
 
-        const validatedUser = jwtToken.verify(token, process.env.SE_KEY);
+        const validatedUser = jwt.verify(token, process.env.SE_KEY);
         res.json({
             id: validatedUser.id,
         });
     } catch (error) {
-        return res.json(null);
+        return res.json({ err: "error!!!" });
     }
 });
 
