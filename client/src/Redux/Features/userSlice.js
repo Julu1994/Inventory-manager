@@ -11,6 +11,9 @@ export const userSlice = createSlice({
         isUser(state) {
             state.user = true;
         },
+        notUser(state) {
+            state.user = false;
+        },
     },
 });
 

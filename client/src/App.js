@@ -7,9 +7,13 @@ import Shrink from "./Pages/shrink";
 import Login from "./Pages/login";
 import Register from "./Pages/register";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import Warning from "./Pages/warning";
 
 axios.defaults.withCredentials = true;
 function App() {
+    const user = useSelector((state) => state.user.user);
+    console.log(user, "app user");
     return (
         <Router>
             <Header />
@@ -18,7 +22,10 @@ function App() {
                 <Route path="/add-product" element={<AddProduct />} />
                 <Route path="/inbound" element={<Inbound />} />
                 <Route path="/shrink" element={<Shrink />} />
-                <Route path="/login" element={<Login />} />
+                <Route
+                    path="/login"
+                    element={!user ? <Login /> : <Warning />}
+                />
                 <Route path="/register" element={<Register />} />
             </Routes>
         </Router>
