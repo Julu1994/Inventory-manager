@@ -58,3 +58,60 @@ authRouter.post("/", async (req, res) => {
         });
     }
 });
+authRouter.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password)
+            return res.status(400).json({
+                error: "Required field is missing",
+            });
+        //User account
+        const existingEmail = await User.findOne({ email });
+        if (!existingEmail)
+            return res.status(400).json({
+                error: "Wrong User Information",
+            });
+
+        realPassword = await bcrypt.compare(password, existingEmail.H_password);
+
+        if (!realPassword)
+            return res.status(400).json({
+                error: "Wrong User Information",
+            });
+
+        //JWT Token
+
+        const jToken = jwt.sign(
+            {
+                id: existingEmail._id,
+            },
+            process.env.SE_KEY
+        );
+
+        res.cookie("token", jToken, { httpOnly: true }).send(); //importent security: httpOnly :true//!!!
+    } catch (error) {
+        res.status(500).json({ error: "Error! Something went wrong!!" });
+    }
+});
+
+authRouter.get("/loogedIn", (req, res) => {
+    try {
+        const token = req.cookies.token;
+        if (!token) return res.json(null);
+
+        const validatedUser = jwtToken.verify(token, process.env.JWT_TOKEN);
+        res.json({
+            id: validatedUser.id,
+        });
+    } catch (error) {
+        return res.json(null);
+    }
+});
+
+authRouter.get("/logout", (req, res) => {
+    try {
+        res.clearCookie("token").send();
+    } catch (error) {
+        res.json(null);
+    }
+});
