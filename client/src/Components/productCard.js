@@ -13,8 +13,17 @@ import Notiflix from "notiflix";
 import { productsAction } from "../Redux/Features/productsSlice";
 
 const ProductCard = (props) => {
-    const { name, details, quantity, price, location, catagory, type, id } =
-        props;
+    const {
+        name,
+        details,
+        quantity,
+        price,
+        location,
+        catagory,
+        type,
+        id,
+        url,
+    } = props;
     const dispatch = useDispatch();
 
     const deleteConfirm = () => {
@@ -53,6 +62,7 @@ const ProductCard = (props) => {
                 id,
                 catagory,
                 type,
+                url,
             })
         );
         // navigate("/add-product");
@@ -63,7 +73,7 @@ const ProductCard = (props) => {
                 <CardMedia
                     component="img"
                     height="80"
-                    image="https://firebasestorage.googleapis.com/v0/b/mychat-46b79.appspot.com/o/Portfolio%2FecoomerceIMG.png?alt=media&token=475daa19-7de0-4346-bc89-dff5f8a0d1f5"
+                    image={url}
                     alt="green iguana"
                 />
                 <CardContent sx={{ margin: "0", padding: "0" }}>

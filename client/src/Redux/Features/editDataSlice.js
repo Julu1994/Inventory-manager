@@ -9,6 +9,7 @@ const initialState = {
         location: "",
         catagory: "",
         type: "",
+        url: "",
     },
 };
 

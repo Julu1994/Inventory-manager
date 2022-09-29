@@ -15,7 +15,6 @@ const Products = () => {
             dispatch(productsAction.storeProducts(res.data));
         };
         getProducts();
-        console.log("rendered");
     }, [dispatch]);
     return (
         <>
@@ -31,6 +30,7 @@ const Products = () => {
                             location={item.location}
                             catagory={item.catagory}
                             type={item.type}
+                            url={item.url}
                         />
                     </Grid>
                 );

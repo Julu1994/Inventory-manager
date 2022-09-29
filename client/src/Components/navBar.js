@@ -49,6 +49,26 @@ const NavBar = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
+                        <ListItemButton component="a">
+                            <ListItemText primary="🍿 Snacks" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton component="a">
+                            <ListItemText primary="🧊 Frozen" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton component="a">
+                            <ListItemText primary="🍾  Wine" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton component="a">
+                            <ListItemText primary="🍺 Beer" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
                         <Tooltip title="Add new product">
                             <Link to="/add-product">
                                 <Fab

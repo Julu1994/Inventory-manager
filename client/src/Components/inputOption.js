@@ -29,6 +29,18 @@ export const catagory = [
         value: "dairy",
         label: "Dairy",
     },
+    {
+        value: "snacks",
+        label: "Snacks",
+    },
+    {
+        value: "frozen",
+        label: "Frozen",
+    },
+    {
+        value: "wine",
+        label: "Wine",
+    },
 ];
 
 export const shrinkReasons = [

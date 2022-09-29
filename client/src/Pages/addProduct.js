@@ -122,6 +122,7 @@ const AddProduct = () => {
             location={location}
             catagories={catagories}
             types={types}
+            url={url}
             handleName={handleName}
             handleDetails={handleDetails}
             handlePrice={handlePrice}
