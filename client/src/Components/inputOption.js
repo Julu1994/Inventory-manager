@@ -22,8 +22,8 @@ export const catagory = [
         label: "Drinks",
     },
     {
-        value: "bread",
-        label: "Bread",
+        value: "breakfast",
+        label: "Breakfast",
     },
     {
         value: "dairy",
@@ -40,6 +40,10 @@ export const catagory = [
     {
         value: "wine",
         label: "Wine",
+    },
+    {
+        value: "beer",
+        label: "Beer",
     },
 ];
 

@@ -14,6 +14,7 @@ import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import axios from "axios";
 import { Notify } from "notiflix";
 import { userActions } from "../Redux/Features/userSlice";
+import { searchAction } from "../Redux/Features/searchSlice";
 
 const Header = () => {
     const loggedInUser = useSelector((state) => state.user.user);
@@ -22,7 +23,6 @@ const Header = () => {
     const editToggle = () => {
         dispatch(editActions.ToggleFalse());
     };
-
     const logout = async () => {
         try {
             await axios.get("http://localhost:4000/auth/logout");
@@ -32,6 +32,9 @@ const Header = () => {
         } catch {
             Notify.failure("Logout faild!");
         }
+    };
+    const actionHandler = async (e) => {
+        dispatch(searchAction.searchName(e.target.value));
     };
 
     return (
@@ -58,7 +61,9 @@ const Header = () => {
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
+
                             <StyledInputBase
+                                onChange={actionHandler}
                                 placeholder="Search…"
                                 inputProps={{ "aria-label": "search" }}
                             />
