@@ -48,7 +48,7 @@ const CardAction = ({ editItem, deleteItem }) => {
                     </MenuItem>
                 </Link>
                 <Link
-                    to="shrink"
+                    to="/shrink"
                     style={{ textDecoration: "none", color: "inherit" }}>
                     <MenuItem
                         onClick={() => {
@@ -69,6 +69,18 @@ const CardAction = ({ editItem, deleteItem }) => {
                         Edit Item
                     </MenuItem>
                 </Link>
+                <Link
+                    to="/discount"
+                    style={{ textDecoration: "none", color: "inherit" }}>
+                    <MenuItem
+                        onClick={() => {
+                            editItem();
+                            handleClose();
+                        }}>
+                        Make Discount
+                    </MenuItem>
+                </Link>
+
                 <MenuItem
                     onClick={() => {
                         handleClose();

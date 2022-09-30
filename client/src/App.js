@@ -10,6 +10,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Warning from "./Pages/warning";
 import { UserId } from "./Components/getUser";
+import Discount from "./Pages/discount";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/add-product" element={<AddProduct />} />
                 <Route path="/inbound" element={<Inbound />} />
                 <Route path="/shrink" element={<Shrink />} />
+                <Route path="/discount" element={<Discount />} />
                 <Route
                     path="/login"
                     element={!user ? <Login /> : <Warning />}

@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { editDataSlice } from "./Features/editDataSlice";
-import { filteredProductsSlice } from "./Features/filteredProducta";
 import { filterSlice } from "./Features/filterSlice";
 import { productsSlice } from "./Features/productsSlice";
 import { searchSlice } from "./Features/searchSlice";
@@ -15,6 +14,5 @@ export const store = configureStore({
         user: userSlice.reducer,
         filter: filterSlice.reducer,
         search: searchSlice.reducer,
-        pProducts: filteredProductsSlice.reducer,
     },
 });
