@@ -28,6 +28,7 @@ const Products = () => {
         };
         getProducts();
     }, [dispatch]);
+
     return (
         <>
             {filterByName.slice(a, b).map((item) => {
@@ -47,36 +48,39 @@ const Products = () => {
                     </Grid>
                 );
             })}
-            <div
-                style={{
-                    width: "100%",
-                    textAlign: "center",
-                    marginTop: "2rem",
-                }}>
-                <ButtonGroup aria-label="outlined button group">
-                    <Button
-                        onClick={() => {
-                            setA(0);
-                            setB(18);
-                        }}>
-                        1
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setA(19);
-                            setB(36);
-                        }}>
-                        2
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setA(37);
-                            setB(54);
-                        }}>
-                        3
-                    </Button>
-                </ButtonGroup>
-            </div>
+
+            {filterByName.length > 18 && (
+                <div
+                    style={{
+                        width: "100%",
+                        textAlign: "center",
+                        marginTop: "2rem",
+                    }}>
+                    <ButtonGroup aria-label="outlined button group">
+                        <Button
+                            onClick={() => {
+                                setA(0);
+                                setB(18);
+                            }}>
+                            1
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                setA(19);
+                                setB(36);
+                            }}>
+                            2
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                setA(37);
+                                setB(54);
+                            }}>
+                            3
+                        </Button>
+                    </ButtonGroup>
+                </div>
+            )}
         </>
     );
 };
