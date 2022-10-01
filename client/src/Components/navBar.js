@@ -24,6 +24,7 @@ const NavBar = () => {
     const allHandler = (event) => {
         handleListItemClick(event, 0);
         dispatch(filterAction.filterCatagory(""));
+        dispatch(filterAction.filterType(""));
     };
     const fruitsHandler = (event) => {
         handleListItemClick(event, 1);
@@ -60,6 +61,10 @@ const NavBar = () => {
     const beerHandler = (event) => {
         handleListItemClick(event, 9);
         dispatch(filterAction.filterCatagory("beer"));
+    };
+    const discountHandler = (event) => {
+        handleListItemClick(event, 10);
+        dispatch(filterAction.filterType("Discount"));
     };
 
     return (
@@ -144,6 +149,14 @@ const NavBar = () => {
                             selected={selectedIndex === 9}
                             onClick={beerHandler}>
                             <ListItemText primary="🍺 Beer" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            component="a"
+                            selected={selectedIndex === 10}
+                            onClick={discountHandler}>
+                            <ListItemText primary="Discounted Items" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>

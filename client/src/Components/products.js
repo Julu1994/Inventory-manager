@@ -7,18 +7,24 @@ import { productsAction } from "../Redux/Features/productsSlice";
 
 const Products = () => {
     const catagory = useSelector((state) => state.filter.catagory);
+    const type = useSelector((state) => state.filter.type);
     const [a, setA] = React.useState(0);
     const [b, setB] = React.useState(18);
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
-    const products = allProducts.filter((i) => {
-        return i.catagory.toLowerCase().includes(catagory);
+
+    const productsDiscount = allProducts.filter((i) => {
+        return i.type.toLowerCase().includes(type.toLowerCase());
+    });
+
+    const products = productsDiscount.filter((i) => {
+        return i.catagory.toLowerCase().includes(catagory.toLowerCase());
     });
 
     const name = useSelector((state) => state.search.name);
 
     const filterByName = products.filter((item) => {
-        return item.name.toLowerCase().includes(name);
+        return item.name.toLowerCase().includes(name.toLowerCase());
     });
 
     React.useEffect(() => {

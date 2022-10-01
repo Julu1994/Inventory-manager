@@ -67,6 +67,7 @@ const ProductCard = (props) => {
         );
         // navigate("/add-product");
     };
+    const discountColor = type === "Discount" ? "red" : "text.secondary";
     return (
         <Card sx={{ maxWidth: 145, mt: "1rem" }}>
             <CardActionArea>
@@ -93,8 +94,8 @@ const ProductCard = (props) => {
                     <Typography
                         sx={{ pl: ".5rem" }}
                         variant="body2"
-                        color="text.secondary">
-                        Price: {price}.00 Kr.
+                        color={discountColor}>
+                        Price: {price.toFixed(2)} Kr.
                     </Typography>
                     <Typography
                         sx={{ pl: ".5rem" }}
