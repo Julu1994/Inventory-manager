@@ -12,7 +12,7 @@ const Products = () => {
         return window.innerWidth < 900;
     };
     const [a, setA] = React.useState(0);
-    const [b, setB] = React.useState(deviceWidth() ? 6 : 18);
+    const [b, setB] = React.useState(deviceWidth() ? 10 : 18);
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
@@ -70,7 +70,7 @@ const Products = () => {
                             onClick={() => {
                                 if (deviceWidth()) {
                                     setA(0);
-                                    setB(6);
+                                    setB(10);
                                 } else {
                                     setA(0);
                                     setB(18);
@@ -81,8 +81,8 @@ const Products = () => {
                         <Button
                             onClick={() => {
                                 if (deviceWidth()) {
-                                    setA(6);
-                                    setB(12);
+                                    setA(10);
+                                    setB(20);
                                 } else {
                                     setA(19);
                                     setB(36);
@@ -93,8 +93,8 @@ const Products = () => {
                         <Button
                             onClick={() => {
                                 if (deviceWidth()) {
-                                    setA(12);
-                                    setB(18);
+                                    setA(20);
+                                    setB(30);
                                 } else {
                                     setA(37);
                                     setB(54);
@@ -102,6 +102,31 @@ const Products = () => {
                             }}>
                             3
                         </Button>
+                        {deviceWidth() && (
+                            <>
+                                <Button
+                                    onClick={() => {
+                                        setA(30);
+                                        setB(40);
+                                    }}>
+                                    4
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setA(40);
+                                        setB(50);
+                                    }}>
+                                    5
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setA(50);
+                                        setB(60);
+                                    }}>
+                                    6
+                                </Button>
+                            </>
+                        )}
                     </ButtonGroup>
                 </div>
             )}
