@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { editDataSlice } from "./Features/editDataSlice";
 import { filterSlice } from "./Features/filterSlice";
+import { navSlice } from "./Features/navToggleSlice";
 import { productsSlice } from "./Features/productsSlice";
 import { searchSlice } from "./Features/searchSlice";
 import { editSlice } from "./Features/toggleSlice";
@@ -14,5 +15,6 @@ export const store = configureStore({
         user: userSlice.reducer,
         filter: filterSlice.reducer,
         search: searchSlice.reducer,
+        nav: navSlice.reducer,
     },
 });

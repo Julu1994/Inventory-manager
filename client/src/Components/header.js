@@ -15,6 +15,9 @@ import axios from "axios";
 import { Notify } from "notiflix";
 import { userActions } from "../Redux/Features/userSlice";
 import { searchAction } from "../Redux/Features/searchSlice";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Box, IconButton } from "@mui/material";
+import { navActions } from "../Redux/Features/navToggleSlice";
 
 const Header = () => {
     const loggedInUser = useSelector((state) => state.user.user);
@@ -22,6 +25,9 @@ const Header = () => {
     const dispatch = useDispatch();
     const editToggle = () => {
         dispatch(editActions.ToggleFalse());
+    };
+    const navToggle = () => {
+        dispatch(navActions.navToggle());
     };
     const logout = async () => {
         try {
@@ -41,6 +47,21 @@ const Header = () => {
         <div>
             <AppBar position="static">
                 <Toolbar>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: "flex", md: "none" },
+                        }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={navToggle}
+                            color="inherit">
+                            <MenuIcon />
+                        </IconButton>
+                    </Box>
                     <Link
                         onClick={editToggle}
                         to="/"
@@ -52,8 +73,13 @@ const Header = () => {
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ flexGrow: 1 }}>
-                            <StoreOutlinedIcon sx={{ fontSize: "2.5rem" }} />
+                            sx={{
+                                flexGrow: 1,
+                                fontSize: "1.5rem",
+                                display: { xs: "none", md: "flex" },
+                            }}>
+                            I
+                            <StoreOutlinedIcon sx={{ fontSize: "2rem" }} />M
                         </Typography>
                     </Link>
                     {loggedInUser && (
@@ -76,10 +102,12 @@ const Header = () => {
                                 textDecoration: "none",
                                 color: "white",
                             }}>
-                            <Button color="inherit">Login</Button>
+                            <Button size="small" color="inherit">
+                                Login
+                            </Button>
                         </Link>
                     ) : (
-                        <Button color="inherit" onClick={logout}>
+                        <Button size="small" color="inherit" onClick={logout}>
                             Logout
                         </Button>
                     )}

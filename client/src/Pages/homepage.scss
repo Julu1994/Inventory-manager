@@ -7,6 +7,7 @@
         left: 0;
         width: 18%;
         height: 100vh;
+        z-index: 500;
     }
 
     &-product {
@@ -14,5 +15,31 @@
         top: 0;
         left: 20%;
         width: 80%;
+
+    }
+}
+
+.nav-toggle {
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 18%;
+    height: 100vh;
+    z-index: 500;
+    transition: 1s;
+}
+
+@media only screen and (max-width: 900px) {
+    .home-nav {
+        width: 70%;
+    }
+
+    .nav-toggle {
+        width: 70%;
+    }
+
+    .home-product {
+        width: 100%;
+        left: 0;
     }
 }

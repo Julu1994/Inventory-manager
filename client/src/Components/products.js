@@ -8,8 +8,11 @@ import { productsAction } from "../Redux/Features/productsSlice";
 const Products = () => {
     const catagory = useSelector((state) => state.filter.catagory);
     const type = useSelector((state) => state.filter.type);
+    const deviceWidth = () => {
+        return window.innerWidth < 900;
+    };
     const [a, setA] = React.useState(0);
-    const [b, setB] = React.useState(18);
+    const [b, setB] = React.useState(deviceWidth() ? 6 : 18);
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
@@ -39,7 +42,7 @@ const Products = () => {
         <>
             {filterByName.slice(a, b).map((item) => {
                 return (
-                    <Grid item xs={6} lg={2} key={item._id}>
+                    <Grid item xs={6} sm={3} md={3} lg={2} key={item._id}>
                         <ProductCard
                             id={item._id}
                             details={item.details}
@@ -65,22 +68,37 @@ const Products = () => {
                     <ButtonGroup aria-label="outlined button group">
                         <Button
                             onClick={() => {
-                                setA(0);
-                                setB(18);
+                                if (deviceWidth()) {
+                                    setA(0);
+                                    setB(6);
+                                } else {
+                                    setA(0);
+                                    setB(18);
+                                }
                             }}>
                             1
                         </Button>
                         <Button
                             onClick={() => {
-                                setA(19);
-                                setB(36);
+                                if (deviceWidth()) {
+                                    setA(6);
+                                    setB(12);
+                                } else {
+                                    setA(19);
+                                    setB(36);
+                                }
                             }}>
                             2
                         </Button>
                         <Button
                             onClick={() => {
-                                setA(37);
-                                setB(54);
+                                if (deviceWidth()) {
+                                    setA(12);
+                                    setB(18);
+                                } else {
+                                    setA(37);
+                                    setB(54);
+                                }
                             }}>
                             3
                         </Button>

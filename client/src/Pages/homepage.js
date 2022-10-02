@@ -4,17 +4,30 @@ import NavBar from "../Components/navBar";
 import Products from "../Components/products";
 import { Grid, Typography } from "@mui/material";
 import StoreMallDirectoryTwoToneIcon from "@mui/icons-material/StoreMallDirectoryTwoTone";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserId } from "../Components/getUser";
+import { navActions } from "../Redux/Features/navToggleSlice";
 const Homepage = () => {
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.user.user);
+    const navToggle = useSelector((state) => state.nav.toggle);
     UserId();
+
+    React.useEffect(() => {
+        const hideNav = () => {
+            if (window.innerWidth < 900) {
+                dispatch(navActions.navToggleHide());
+            }
+        };
+        console.log("hi");
+        hideNav();
+    }, [dispatch]);
 
     return (
         <div className="home">
             {isLoggedIn ? (
                 <>
-                    <div className="home-nav">
+                    <div className={navToggle ? "home-nav" : "nav-toggle"}>
                         <NavBar />
                     </div>
                     <div className="home-product">
