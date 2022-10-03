@@ -173,7 +173,7 @@ const NavBar = () => {
                             component="a"
                             selected={selectedIndex === 10}
                             onClick={discountHandler}>
-                            <ListItemText primary="Discounted Items" />
+                            <ListItemText primary="🤩 Discounted Items" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
