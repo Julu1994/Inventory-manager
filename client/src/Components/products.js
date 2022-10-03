@@ -37,7 +37,7 @@ const Products = () => {
             dispatch(productsAction.storeProducts(res.data));
         };
         getProducts();
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
@@ -59,7 +59,7 @@ const Products = () => {
                 );
             })}
 
-            {allProducts.length > 18 && (
+            {filterByName.length > 18 && (
                 <div
                     style={{
                         width: "100%",
