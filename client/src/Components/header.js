@@ -31,9 +31,7 @@ const Header = () => {
     };
     const logout = async () => {
         try {
-            await axios.get(
-                "https://inventory-manager-server-jewel.herokuapp.com/auth/logout"
-            );
+            await axios.get("http://localhost:4000/auth/logout");
             dispatch(userActions.notUser());
             navigate("/login");
             Notify.success("User logout");

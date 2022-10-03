@@ -51,7 +51,12 @@ authRouter.post("/", async (req, res) => {
             secretKey
         );
 
-        res.cookie("token", jToken, { httpOnly: true }).send(); //****/The most importent security thing  //httpOnly :true//****///
+        res.cookie("token", jToken, {
+            sameSite: "none",
+            secure: true,
+            domain: "inventory-manager-jewel.netlify.app",
+            httpOnly: true,
+        }).send(); //****/The most importent security thing  //httpOnly :true//****///
     } catch (error) {
         res.status(500).json({
             errorMessage: "Error! Something went went wrong!",
@@ -91,7 +96,12 @@ authRouter.post("/login", async (req, res) => {
             Key
         );
 
-        res.cookie("token", jsonToken, { httpOnly: true }).send(); //importent security: httpOnly :true//!!!
+        res.cookie("token", jsonToken, {
+            sameSite: "none",
+            secure: true,
+            domain: "inventory-manager-jewel.netlify.app",
+            httpOnly: true,
+        }).send(); //importent security: httpOnly :true//!!!
     } catch (error) {
         res.status(500).json({ error: "Error! Something went wrong!!" });
     }

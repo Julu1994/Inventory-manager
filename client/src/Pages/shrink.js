@@ -34,7 +34,7 @@ const Shrink = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `https://inventory-manager-server-jewel.herokuapp.com/${existingItem.id}`,
+                    `http://localhost:4000/${existingItem.id}`,
                     product
                 );
                 toast.success(`${item} items have been removed`);
