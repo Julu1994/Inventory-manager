@@ -4,13 +4,13 @@ const initialState = {
     items: [
         {
             _id: "1",
-            name: "",
+            name: "Mango",
             details: "",
             price: 0,
             quantity: 0,
-            location: "",
-            catagory: "",
-            type: "",
+            location: "A1",
+            catagory: "fruits",
+            type: "regular",
             url: "",
         },
     ],

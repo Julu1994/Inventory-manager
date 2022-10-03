@@ -16,17 +16,17 @@ const Products = () => {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
-    const productsDiscount = allProducts.filter((i) => {
+    const productsDiscount = allProducts?.filter((i) => {
         return i.type.toLowerCase().includes(type.toLowerCase());
     });
 
-    const products = productsDiscount.filter((i) => {
+    const products = productsDiscount?.filter((i) => {
         return i.catagory.toLowerCase().includes(catagory.toLowerCase());
     });
 
     const name = useSelector((state) => state.search.name);
 
-    const filterByName = products.filter((item) => {
+    const filterByName = products?.filter((item) => {
         return item.name.toLowerCase().includes(name.toLowerCase());
     });
 
