@@ -43,7 +43,7 @@ const Products = () => {
 
     return (
         <>
-            {allProducts.slice(a, b).map((item) => {
+            {allProducts.map((item) => {
                 return (
                     <Grid item xs={6} sm={3} md={3} lg={2} key={item._id}>
                         <ProductCard
