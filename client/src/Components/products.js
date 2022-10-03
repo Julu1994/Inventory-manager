@@ -2,8 +2,8 @@ import React from "react";
 import ProductCard from "./productCard";
 import axios from "axios";
 import { Button, ButtonGroup, Grid } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { productsAction } from "../Redux/Features/productsSlice";
+import { useSelector } from "react-redux";
+//import { productsAction } from "../Redux/Features/productsSlice";
 
 const Products = () => {
     // const catagory = useSelector((state) => state.filter.catagory);
@@ -14,7 +14,7 @@ const Products = () => {
     const [a, setA] = React.useState(0);
     const [b, setB] = React.useState(deviceWidth() ? 10 : 18);
     console.log(a, b);
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
     // const productsDiscount = Array.isArray(allProducts)
@@ -37,10 +37,11 @@ const Products = () => {
             const res = await axios.get(
                 "https://inventory-manager-jewel.netlify.app/"
             );
-            dispatch(productsAction.storeProducts(res.data));
+            //dispatch(productsAction.storeProducts(res.data));
+            console.log(res.data);
         };
         getProducts();
-    }, [dispatch]);
+    }, []);
 
     return (
         <>
