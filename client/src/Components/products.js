@@ -13,6 +13,7 @@ const Products = () => {
     };
     const [a, setA] = React.useState(0);
     const [b, setB] = React.useState(deviceWidth() ? 10 : 18);
+    console.log(a, b);
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
