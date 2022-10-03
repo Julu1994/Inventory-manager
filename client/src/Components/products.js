@@ -16,7 +16,7 @@ const Products = () => {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
-    const productsDiscount = Arrey.isArray(allProducts)
+    const productsDiscount = Array.isArray(allProducts)
         ? allProducts.filter((item) =>
               item.type.toLowerCase().includes(type.toLowerCase())
           )
@@ -31,7 +31,6 @@ const Products = () => {
     const filterByName = products?.filter((item) =>
         item.name.toLowerCase().includes(name.toLowerCase())
     );
-
     React.useEffect(() => {
         const getProducts = async () => {
             const res = await axios.get(
