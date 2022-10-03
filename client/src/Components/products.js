@@ -16,19 +16,19 @@ const Products = () => {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
-    const productsDiscount = allProducts?.filter((i) => {
-        return i.type.toLowerCase().includes(type.toLowerCase());
-    });
+    const productsDiscount = allProducts?.filter((i) =>
+        i.type.toLowerCase().includes(type.toLowerCase())
+    );
 
-    const products = productsDiscount?.filter((i) => {
-        return i.catagory.toLowerCase().includes(catagory.toLowerCase());
-    });
+    const products = productsDiscount?.filter((i) =>
+        i.catagory.toLowerCase().includes(catagory.toLowerCase())
+    );
 
     const name = useSelector((state) => state.search.name);
 
-    const filterByName = products?.filter((item) => {
-        return item.name.toLowerCase().includes(name.toLowerCase());
-    });
+    const filterByName = products?.filter((item) =>
+        item.name.toLowerCase().includes(name.toLowerCase())
+    );
 
     React.useEffect(() => {
         const getProducts = async () => {
