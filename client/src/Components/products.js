@@ -2,50 +2,46 @@ import React from "react";
 import ProductCard from "./productCard";
 import axios from "axios";
 import { Button, ButtonGroup, Grid } from "@mui/material";
-import { useSelector } from "react-redux";
-//import { productsAction } from "../Redux/Features/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { productsAction } from "../Redux/Features/productsSlice";
 
 const Products = () => {
-    // const catagory = useSelector((state) => state.filter.catagory);
-    // const type = useSelector((state) => state.filter.type);
+    const catagory = useSelector((state) => state.filter.catagory);
+    const type = useSelector((state) => state.filter.type);
     const deviceWidth = () => {
         return window.innerWidth < 900;
     };
     const [a, setA] = React.useState(0);
     const [b, setB] = React.useState(deviceWidth() ? 10 : 18);
-    console.log(a, b);
-    //const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
-    // const productsDiscount = Array.isArray(allProducts)
-    //     ? allProducts.filter((item) =>
-    //           item.type.toLowerCase().includes(type.toLowerCase())
-    //       )
-    //     : [];
+    const productsDiscount = allProducts.filter((item) =>
+        item.type.toLowerCase().includes(type.toLowerCase())
+    );
 
-    // const products = productsDiscount?.filter((item) =>
-    //     item.catagory.toLowerCase().includes(catagory.toLowerCase())
-    // );
+    const products = productsDiscount?.filter((item) =>
+        item.catagory.toLowerCase().includes(catagory.toLowerCase())
+    );
 
-    // const name = useSelector((state) => state.search.name);
+    const name = useSelector((state) => state.search.name);
 
-    // const filterByName = products?.filter((item) =>
-    //     item.name.toLowerCase().includes(name.toLowerCase())
-    // );
+    const filterByName = products?.filter((item) =>
+        item.name.toLowerCase().includes(name.toLowerCase())
+    );
     React.useEffect(() => {
         const getProducts = async () => {
             const res = await axios.get(
-                "https://inventory-manager-jewel.netlify.app/"
+                "https://inventory-manager-server-jewel.herokuapp.com/"
             );
-            //dispatch(productsAction.storeProducts(res.data));
-            console.log(res.data);
+            dispatch(productsAction.storeProducts(res.data));
         };
         getProducts();
     }, []);
 
     return (
         <>
-            {allProducts.map((item) => {
+            {filterByName.slice(a, b).map((item) => {
                 return (
                     <Grid item xs={6} sm={3} md={3} lg={2} key={item._id}>
                         <ProductCard
