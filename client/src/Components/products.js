@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { productsAction } from "../Redux/Features/productsSlice";
 
 const Products = () => {
-    const catagory = useSelector((state) => state.filter.catagory);
-    const type = useSelector((state) => state.filter.type);
+    // const catagory = useSelector((state) => state.filter.catagory);
+    // const type = useSelector((state) => state.filter.type);
     const deviceWidth = () => {
         return window.innerWidth < 900;
     };
@@ -16,21 +16,21 @@ const Products = () => {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
-    const productsDiscount = Array.isArray(allProducts)
-        ? allProducts.filter((item) =>
-              item.type.toLowerCase().includes(type.toLowerCase())
-          )
-        : [];
+    // const productsDiscount = Array.isArray(allProducts)
+    //     ? allProducts.filter((item) =>
+    //           item.type.toLowerCase().includes(type.toLowerCase())
+    //       )
+    //     : [];
 
-    const products = productsDiscount?.filter((item) =>
-        item.catagory.toLowerCase().includes(catagory.toLowerCase())
-    );
+    // const products = productsDiscount?.filter((item) =>
+    //     item.catagory.toLowerCase().includes(catagory.toLowerCase())
+    // );
 
-    const name = useSelector((state) => state.search.name);
+    // const name = useSelector((state) => state.search.name);
 
-    const filterByName = products?.filter((item) =>
-        item.name.toLowerCase().includes(name.toLowerCase())
-    );
+    // const filterByName = products?.filter((item) =>
+    //     item.name.toLowerCase().includes(name.toLowerCase())
+    // );
     React.useEffect(() => {
         const getProducts = async () => {
             const res = await axios.get(
@@ -43,7 +43,7 @@ const Products = () => {
 
     return (
         <>
-            {filterByName.slice(a, b).map((item) => {
+            {allProducts.slice(a, b).map((item) => {
                 return (
                     <Grid item xs={6} sm={3} md={3} lg={2} key={item._id}>
                         <ProductCard
@@ -61,7 +61,7 @@ const Products = () => {
                 );
             })}
 
-            {filterByName.length > 18 && (
+            {allProducts.length > 18 && (
                 <div
                     style={{
                         width: "100%",
