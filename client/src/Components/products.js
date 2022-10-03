@@ -16,12 +16,14 @@ const Products = () => {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products.items);
 
-    const productsDiscount = allProducts?.filter((i) =>
-        i.type.toLowerCase().includes(type.toLowerCase())
-    );
+    const productsDiscount = Arrey.isArray(allProducts)
+        ? allProducts.filter((item) =>
+              item.type.toLowerCase().includes(type.toLowerCase())
+          )
+        : [];
 
-    const products = productsDiscount?.filter((i) =>
-        i.catagory.toLowerCase().includes(catagory.toLowerCase())
+    const products = productsDiscount?.filter((item) =>
+        item.catagory.toLowerCase().includes(catagory.toLowerCase())
     );
 
     const name = useSelector((state) => state.search.name);
