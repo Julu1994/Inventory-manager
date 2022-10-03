@@ -9,13 +9,11 @@ import Register from "./Pages/register";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Warning from "./Pages/warning";
-import { UserId } from "./Components/getUser";
 import Discount from "./Pages/discount";
 
 axios.defaults.withCredentials = true;
 function App() {
     const user = useSelector((state) => state.user.user);
-    UserId();
     return (
         <Router>
             <Header />

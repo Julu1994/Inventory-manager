@@ -8,11 +8,14 @@ import { TextField, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Notify } from "notiflix";
+import { useDispatch } from "react-redux";
+import { userActions } from "../Redux/Features/userSlice";
 
 const Login = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -21,13 +24,28 @@ const Login = () => {
             password,
         };
         try {
-            await axios.post("http://localhost:4000/auth/login", data);
+            await axios.post(
+                "https://inventory-manager-server-jewel.herokuapp.com/auth/login",
+                data
+            );
+            getUser();
             Notify.success("Successful login");
             navigate("/");
             setEmail("");
             setPassword("");
         } catch {
             Notify.failure("Error! Login Failed!");
+        }
+    };
+
+    const getUser = async () => {
+        const user = await axios.get(
+            "https://inventory-manager-server-jewel.herokuapp.com/auth/loggedIn"
+        );
+        console.log(user.data);
+
+        if (user.data.id) {
+            dispatch(userActions.isUser());
         }
     };
     return (
