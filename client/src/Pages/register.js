@@ -26,7 +26,10 @@ const Register = () => {
             confirm,
         };
         try {
-            await axios.post("http://localhost:4000/auth", data);
+            await axios.post(
+                "https://inventory-manager-jewel.netlify.app/auth",
+                data
+            );
             Notify.success("Successfully Registered");
             navigate("/");
             setName("");

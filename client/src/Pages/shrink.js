@@ -34,7 +34,7 @@ const Shrink = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `http://localhost:4000/${existingItem.id}`,
+                    `https://inventory-manager-jewel.netlify.app/${existingItem.id}`,
                     product
                 );
                 toast.success(`${item} items have been removed`);

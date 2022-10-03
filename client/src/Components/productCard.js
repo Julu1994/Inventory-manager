@@ -43,9 +43,11 @@ const ProductCard = (props) => {
         );
     };
     const deleteProduct = async () => {
-        await axios.delete(`http://localhost:4000/${id}`);
+        await axios.delete(`https://inventory-manager-jewel.netlify.app/${id}`);
         const getProducts = async () => {
-            const res = await axios.get("http://localhost:4000/");
+            const res = await axios.get(
+                "https://inventory-manager-jewel.netlify.app/"
+            );
             dispatch(productsAction.storeProducts(res.data));
         };
         getProducts();

@@ -31,7 +31,9 @@ const Header = () => {
     };
     const logout = async () => {
         try {
-            await axios.get("http://localhost:4000/auth/logout");
+            await axios.get(
+                "https://inventory-manager-jewel.netlify.app/auth/logout"
+            );
             dispatch(userActions.notUser());
             navigate("/login");
             Notify.success("User logout");

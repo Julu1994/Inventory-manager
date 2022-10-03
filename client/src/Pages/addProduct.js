@@ -87,7 +87,10 @@ const AddProduct = () => {
     const addProduct = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://localhost:4000/", product);
+            await axios.post(
+                "https://inventory-manager-jewel.netlify.app/",
+                product
+            );
             setName("");
             setDetails("");
             setPrice("");
@@ -103,7 +106,10 @@ const AddProduct = () => {
     const editProduct = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(`http://localhost:4000/${inputEdit.id}`, product);
+            await axios.put(
+                `https://inventory-manager-jewel.netlify.app/${inputEdit.id}`,
+                product
+            );
             dispatch(editActions.editToggle());
             navigate("/");
         } catch {

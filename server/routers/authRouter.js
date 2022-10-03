@@ -54,7 +54,6 @@ authRouter.post("/", async (req, res) => {
         res.cookie("token", jToken, {
             sameSite: "none",
             secure: true,
-            domain: "inventory-manager-jewel.netlify.app",
             httpOnly: true,
         }).send(); //****/The most importent security thing  //httpOnly :true//****///
     } catch (error) {
@@ -99,7 +98,6 @@ authRouter.post("/login", async (req, res) => {
         res.cookie("token", jsonToken, {
             sameSite: "none",
             secure: true,
-            domain: "inventory-manager-jewel.netlify.app",
             httpOnly: true,
         }).send(); //importent security: httpOnly :true//!!!
     } catch (error) {

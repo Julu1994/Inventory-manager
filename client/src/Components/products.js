@@ -32,7 +32,9 @@ const Products = () => {
 
     React.useEffect(() => {
         const getProducts = async () => {
-            const res = await axios.get("http://localhost:4000");
+            const res = await axios.get(
+                "https://inventory-manager-jewel.netlify.app/"
+            );
             dispatch(productsAction.storeProducts(res.data));
         };
         getProducts();
