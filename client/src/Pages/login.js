@@ -32,7 +32,8 @@ const Login = () => {
             setEmail("");
             setPassword("");
         } catch (err) {
-            Notify.failure(err.response.data.console.error);
+            console.log(err);
+            Notify.failure("Error! Login failed");
         }
     };
 
