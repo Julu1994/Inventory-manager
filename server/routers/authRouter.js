@@ -121,7 +121,12 @@ authRouter.get("/loggedIn", (req, res) => {
 
 authRouter.get("/logout", (req, res) => {
     try {
-        res.clearCookie("token").send();
+        res.cookie("token", "", {
+            sameSite: "none",
+            secure: true,
+            httpOnly: true,
+            expires: new Date(0),
+        }).send();
     } catch (error) {
         res.json(null);
     }
