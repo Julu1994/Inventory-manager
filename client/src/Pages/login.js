@@ -32,7 +32,7 @@ const Login = () => {
             setEmail("");
             setPassword("");
         } catch {
-            Notify.failure("Error! Login Failed!");
+            Notify.failure("Error! Login Failed!!!");
         }
     };
 
