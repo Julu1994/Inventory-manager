@@ -5,7 +5,6 @@ import Products from "../Components/products";
 import { Grid, Typography } from "@mui/material";
 import StoreMallDirectoryTwoToneIcon from "@mui/icons-material/StoreMallDirectoryTwoTone";
 import { useDispatch, useSelector } from "react-redux";
-// import { UserId } from "../Components/getUser";
 import { navActions } from "../Redux/Features/navToggleSlice";
 const Homepage = () => {
     const dispatch = useDispatch();
