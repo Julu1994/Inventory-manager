@@ -82,7 +82,7 @@ authRouter.post("/login", async (req, res) => {
         );
         if (!realPassword)
             return res.status(400).json({
-                errorMessage: "Wrong User Information",
+                error: "Wrong User Information",
             });
 
         //JWT Token

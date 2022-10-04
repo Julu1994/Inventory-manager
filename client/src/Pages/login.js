@@ -31,8 +31,8 @@ const Login = () => {
             navigate("/");
             setEmail("");
             setPassword("");
-        } catch {
-            Notify.failure("Error! Login Failed!!!");
+        } catch (err) {
+            Notify.failure(err.response.data.console.error);
         }
     };
 
