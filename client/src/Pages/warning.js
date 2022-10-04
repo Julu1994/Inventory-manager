@@ -4,7 +4,9 @@ import React from "react";
 const Warning = () => {
     return (
         <div>
-            <Alert severity="warning">You need to logout first!</Alert>
+            <Alert severity="warning">
+                You can't login while you are loggedIn!
+            </Alert>
         </div>
     );
 };
