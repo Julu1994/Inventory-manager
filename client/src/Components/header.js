@@ -32,7 +32,7 @@ const Header = () => {
     const logout = async () => {
         try {
             await axios.get(
-                "https://inventory-manager-jewel.netlify.app/auth/logout"
+                "https://inventory-manager-server-jewel.herokuapp.com/auth/logout"
             );
             dispatch(userActions.notUser());
             navigate("/login");

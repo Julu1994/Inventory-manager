@@ -28,7 +28,7 @@ const Inbound = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `https://inventory-manager-jewel.netlify.app/${existingItem.id}`,
+                    `https://inventory-manager-server-jewel.herokuapp.com/${existingItem.id}`,
                     product
                 );
                 toast.success(`${item} items have been added`);

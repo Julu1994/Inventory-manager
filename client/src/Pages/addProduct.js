@@ -88,7 +88,7 @@ const AddProduct = () => {
         event.preventDefault();
         try {
             await axios.post(
-                "https://inventory-manager-jewel.netlify.app/",
+                "https://inventory-manager-server-jewel.herokuapp.com/",
                 product
             );
             setName("");
@@ -107,7 +107,7 @@ const AddProduct = () => {
         event.preventDefault();
         try {
             await axios.put(
-                `https://inventory-manager-jewel.netlify.app/${inputEdit.id}`,
+                `https://inventory-manager-server-jewel.herokuapp.com/${inputEdit.id}`,
                 product
             );
             dispatch(editActions.editToggle());

@@ -10,10 +10,15 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Warning from "./Pages/warning";
 import Discount from "./Pages/discount";
+import { useEffect } from "react";
+import { UserId } from "./Components/getUser";
 
 axios.defaults.withCredentials = true;
 function App() {
     const user = useSelector((state) => state.user.user);
+    useEffect(() => {
+        UserId();
+    }, []);
     return (
         <Router>
             <Header />
