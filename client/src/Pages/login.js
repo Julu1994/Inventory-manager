@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import { TextField, Typography } from "@mui/material";
+import { Alert, TextField, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Notify } from "notiflix";
@@ -114,6 +114,9 @@ const Login = () => {
                     </p>
                 </div>
             </Card>
+            <Alert sx={{ mt: "2rem" }} severity="info">
+                Demo Account: demo@gmail.com Password: demo123
+            </Alert>
         </div>
     );
 };
