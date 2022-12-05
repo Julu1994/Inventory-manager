@@ -29,7 +29,7 @@ const Discount = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `https://inventory-manager-server-jewel.herokuapp.com/${existingItem.id}`,
+                    `https://inventory-manager-production.up.railway.app/${existingItem.id}`,
                     product
                 );
                 toast.success(

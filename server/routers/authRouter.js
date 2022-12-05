@@ -99,7 +99,7 @@ authRouter.post("/login", async (req, res) => {
             sameSite: "none",
             secure: true,
             httpOnly: true,
-        }).send(); //importent security: httpOnly :true//!!!
+        }).send();
     } catch (error) {
         res.status(500).json({ error: "Error! Something went wrong!!" });
     }

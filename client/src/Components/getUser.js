@@ -8,7 +8,7 @@ export const UserId = () => {
     useEffect(() => {
         const getUser = async () => {
             const user = await axios.get(
-                "https://inventory-manager-server-jewel.herokuapp.com/auth/loggedIn"
+                "https://inventory-manager-production.up.railway.app/auth/loggedIn"
             );
             if (user.data.id) {
                 dispatch(userActions.isUser());

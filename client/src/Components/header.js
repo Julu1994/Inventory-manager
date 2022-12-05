@@ -32,7 +32,7 @@ const Header = () => {
     const logout = async () => {
         try {
             await axios.get(
-                "https://inventory-manager-server-jewel.herokuapp.com/auth/logout"
+                "https://inventory-manager-production.up.railway.app/auth/logout"
             );
             dispatch(userActions.notUser());
             navigate("/login");

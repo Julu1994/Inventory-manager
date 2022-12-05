@@ -88,7 +88,7 @@ const AddProduct = () => {
         event.preventDefault();
         try {
             await axios.post(
-                "https://inventory-manager-server-jewel.herokuapp.com/",
+                "https://inventory-manager-production.up.railway.app/",
                 product
             );
             setName("");

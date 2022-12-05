@@ -25,7 +25,7 @@ const Login = () => {
         };
         try {
             await axios.post(
-                "https://inventory-manager-server-jewel.herokuapp.com/auth/login",
+                "https://inventory-manager-production.up.railway.app/auth/login",
                 data
             );
             getUser();

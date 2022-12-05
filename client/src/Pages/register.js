@@ -27,7 +27,7 @@ const Register = () => {
         };
         try {
             await axios.post(
-                "https://inventory-manager-server-jewel.herokuapp.com/auth",
+                "https://inventory-manager-production.up.railway.app/auth",
                 data
             );
             Notify.success("Successfully Registered");

@@ -32,7 +32,7 @@ const Products = () => {
     React.useEffect(() => {
         const getProducts = async () => {
             const res = await axios.get(
-                "https://inventory-manager-server-jewel.herokuapp.com/"
+                "https://inventory-manager-production.up.railway.app/"
             );
             dispatch(productsAction.storeProducts(res.data));
         };

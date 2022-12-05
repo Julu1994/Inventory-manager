@@ -44,11 +44,11 @@ const ProductCard = (props) => {
     };
     const deleteProduct = async () => {
         await axios.delete(
-            `https://inventory-manager-server-jewel.herokuapp.com/${id}`
+            `https://inventory-manager-production.up.railway.app/${id}`
         );
         const getProducts = async () => {
             const res = await axios.get(
-                "https://inventory-manager-server-jewel.herokuapp.com/"
+                "https://inventory-manager-production.up.railway.app/"
             );
             dispatch(productsAction.storeProducts(res.data));
         };
