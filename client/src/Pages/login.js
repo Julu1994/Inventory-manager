@@ -17,6 +17,15 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const getUser = async () => {
+        const user = await axios.get(
+            "https://inventory-manager-production.up.railway.app/auth/loggedIn"
+        );
+        if (user.data.id) {
+            dispatch(userActions.isUser());
+        }
+    };
+
     const handleLogin = async (event) => {
         event.preventDefault();
         const data = {
@@ -35,14 +44,6 @@ const Login = () => {
             setPassword("");
         } catch {
             Notify.failure("Error! Login failed");
-        }
-    };
-    const getUser = async () => {
-        const user = await axios.get(
-            "https://inventory-manager-server-jewel.herokuapp.com/auth/loggedIn"
-        );
-        if (user.data.id) {
-            dispatch(userActions.isUser());
         }
     };
 

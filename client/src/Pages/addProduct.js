@@ -107,7 +107,7 @@ const AddProduct = () => {
         event.preventDefault();
         try {
             await axios.put(
-                `https://inventory-manager-server-jewel.herokuapp.com/${inputEdit.id}`,
+                `https://inventory-manager-production.up.railway.app/${inputEdit.id}`,
                 product
             );
             dispatch(editActions.editToggle());

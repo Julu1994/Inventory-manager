@@ -18,7 +18,6 @@ const Homepage = () => {
                 dispatch(navActions.navToggleHide());
             }
         };
-        console.log("hi");
         hideNav();
     }, [dispatch]);
 
