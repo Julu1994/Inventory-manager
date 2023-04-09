@@ -10,7 +10,6 @@ const Homepage = () => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.user.user);
     const navToggle = useSelector((state) => state.nav.toggle);
-    console.log(isLoggedIn);
 
     React.useEffect(() => {
         const hideNav = () => {

@@ -70,6 +70,7 @@ router.delete("/:id", auth, async (req, res) => {
             });
 
         if (existedProduct.user.toString() !== req.user) {
+            console.log(existedProduct.user.toString() !== req.user);
             return res.status(400).json({
                 error: "Error! Unauthorised action",
             });

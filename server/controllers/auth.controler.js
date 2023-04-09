@@ -4,13 +4,22 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/authModel.js";
 export const authRouter = express.Router();
 
-authRouter.post("/", async (req, res) => {
+/**
+ * Handles user registration.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
+export const signup = async (req, res) => {
     try {
         const { name, email, password, confirm } = req.body;
+
         if (!name || !email || !password || !confirm)
             return res.status(400).json({
                 errorMessage: "Required field is missing",
             });
+
         if (password.length < 6)
             return res.status(400).json({
                 errorMessage: "At least 6 charachters are required",
@@ -18,30 +27,26 @@ authRouter.post("/", async (req, res) => {
 
         if (password !== confirm)
             return res.status(400).json({
-                errorMessage: "Password hasn't been varified",
+                errorMessage: "Password hasn't been verified",
             });
-        //Checking existing emails
+
         const existingEmail = await User.findOne({ email });
+
         if (existingEmail)
             return res.status(400).json({
                 errorMessage:
                     "This email has already been used to create an account",
             });
 
-        //passsword
         const salt = await bcrypt.genSalt();
-        const H_password = await bcrypt.hash(password, salt);
-
-        //Adding User
+        const passwordHash = await bcrypt.hash(password, salt);
         const newUser = new User({
             name,
             email,
-            H_password,
+            passwordHash,
         });
 
         const addingUser = await newUser.save();
-
-        //JWT Token
         const secretKey = process.env.SE_KEY;
 
         const jToken = jwt.sign(
@@ -55,21 +60,29 @@ authRouter.post("/", async (req, res) => {
             sameSite: "none",
             secure: true,
             httpOnly: true,
-        }).send(); //****/The most importent security thing  //httpOnly :true//****///
+        }).send();
     } catch (error) {
         res.status(500).json({
             errorMessage: "Error! Something went went wrong!",
         });
     }
-});
-authRouter.post("/login", async (req, res) => {
+};
+
+/**
+ * Handles user login.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password)
             return res.status(400).json({
                 error: "Required field is missing",
             });
-        //User account
+
         const existingEmail = await User.findOne({ email });
         if (!existingEmail)
             return res.status(400).json({
@@ -80,12 +93,11 @@ authRouter.post("/login", async (req, res) => {
             password,
             existingEmail.H_password
         );
+
         if (!realPassword)
             return res.status(400).json({
                 error: "Wrong User Information",
             });
-
-        //JWT Token
         const Key = process.env.SE_KEY;
 
         const jsonToken = jwt.sign(
@@ -103,12 +115,18 @@ authRouter.post("/login", async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: "Error! Something went wrong!!" });
     }
-});
-
-authRouter.get("/loggedIn", (req, res) => {
+};
+/**
+ * Checks if the user is logged in based on the authentication token.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
+export const loginedin = async (req, res) => {
     try {
         const token = req.cookies.token;
-        if (!token) return res.json({ err: "no token" });
+        if (!token) return res.json({ err: "User not logged in" });
 
         const validatedUser = jwt.verify(token, process.env.SE_KEY);
         res.json({
@@ -117,9 +135,17 @@ authRouter.get("/loggedIn", (req, res) => {
     } catch (error) {
         return res.json({ err: "error!!!" });
     }
-});
+};
 
-authRouter.get("/logout", (req, res) => {
+/**
+ * Handles user logout by clearing the authentication token.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
+
+export const logout = async (req, res) => {
     try {
         res.cookie("token", "", {
             sameSite: "none",
@@ -130,4 +156,4 @@ authRouter.get("/logout", (req, res) => {
     } catch (error) {
         res.json(null);
     }
-});
+};
