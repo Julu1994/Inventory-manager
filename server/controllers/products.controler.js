@@ -64,7 +64,7 @@ export const removeProducts = async (req, res) => {
   }
 };
 
-export const updateProducts = async (req, res) => {
+export const editProducts = async (req, res) => {
   try {
     const { name, details, price, quantity, location, catagory, type, url } =
       req.body;
@@ -95,12 +95,45 @@ export const updateProducts = async (req, res) => {
     existingProduct.name = name;
     existingProduct.details = details;
     existingProduct.price = price;
-    existingProduct.quantity = quantity;
     existingProduct.location = location;
     existingProduct.catagory = catagory;
     existingProduct.type = type;
     existingProduct.url = url;
 
+    const savedProduct = await existingProduct.save();
+    res.json(savedProduct);
+  } catch (error) {
+    res.status(500).json({ errore: 'Error!! Something went worong' });
+  }
+};
+
+export const shrinkProducts = async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    const productID = req.params.id;
+    if (!quantity) {
+      return res.status(400).json({
+        error: 'Required field is missing',
+      });
+    }
+    if (!productID)
+      return res.status(400).json({
+        error: 'Error! Something went wrong',
+      });
+
+    const existingProduct = await ProductModel.findById(productID);
+
+    if (!existingProduct)
+      return res.status(400).json({
+        error: 'Error! Something went wrong',
+      });
+    if (existingProduct.user.toString() !== req.user) {
+      return res.status(400).json({
+        error: 'Error! Unauthorised action',
+      });
+    }
+
+    existingProduct.quantity = existingProduct.quantity - quantity;
     const savedProduct = await existingProduct.save();
     res.json(savedProduct);
   } catch (error) {
