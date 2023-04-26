@@ -1,5 +1,4 @@
 import express from 'express';
-import { auth } from '../middleware/auth.js';
 import { ProductModel } from '../models/productModel.js';
 export const router = express.Router();
 
@@ -134,6 +133,39 @@ export const shrinkProducts = async (req, res) => {
     }
 
     existingProduct.quantity = existingProduct.quantity - quantity;
+    const savedProduct = await existingProduct.save();
+    res.json(savedProduct);
+  } catch (error) {
+    res.status(500).json({ errore: 'Error!! Something went worong' });
+  }
+};
+export const inboundProducts = async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    const productID = req.params.id;
+    if (!quantity) {
+      return res.status(400).json({
+        error: 'Required field is missing',
+      });
+    }
+    if (!productID)
+      return res.status(400).json({
+        error: 'Error! Something went wrong',
+      });
+
+    const existingProduct = await ProductModel.findById(productID);
+
+    if (!existingProduct)
+      return res.status(400).json({
+        error: 'Error! Something went wrong',
+      });
+    if (existingProduct.user.toString() !== req.user) {
+      return res.status(400).json({
+        error: 'Error! Unauthorised action',
+      });
+    }
+
+    existingProduct.quantity = existingProduct.quantity + quantity;
     const savedProduct = await existingProduct.save();
     res.json(savedProduct);
   } catch (error) {
