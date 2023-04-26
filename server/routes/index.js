@@ -11,6 +11,7 @@ import {
   removeProducts,
   editProducts,
   shrinkProducts,
+  inboundProducts,
 } from '../controllers/products.controler.js';
 export const route = express.Router();
 
@@ -22,3 +23,4 @@ route.post('/products/new-products', auth, addNewProducts);
 route.delete('/products/remove-products', auth, removeProducts);
 route.put('/products/update-products', auth, editProducts);
 route.put('/products/shrink-products', auth, shrinkProducts);
+route.put('/products/shrink-products', auth, inboundProducts);
