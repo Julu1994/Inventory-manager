@@ -8,7 +8,7 @@ export const UserId = () => {
     useEffect(() => {
         const getUser = async () => {
             const user = await axios.get(
-                "https://inventory-manager-production.up.railway.app/auth/loggedIn"
+                "http://localhost:4000/api/v1/auth/loginedIn"
             );
             if (user.data.id) {
                 dispatch(userActions.isUser());

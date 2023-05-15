@@ -44,11 +44,11 @@ const ProductCard = (props) => {
     };
     const deleteProduct = async () => {
         await axios.delete(
-            `https://inventory-manager-production.up.railway.app/${id}`
+            `http://localhost:4000/api/v1/products/remove-products/${id}`
         );
         const getProducts = async () => {
             const res = await axios.get(
-                "https://inventory-manager-production.up.railway.app/"
+                "http://localhost:4000/api/v1/products/get-products"
             );
             dispatch(productsAction.storeProducts(res.data));
         };

@@ -26,10 +26,7 @@ const Register = () => {
             confirm,
         };
         try {
-            await axios.post(
-                "https://inventory-manager-production.up.railway.app/auth",
-                data
-            );
+            await axios.post("http://localhost:4000/api/v1/auth/signup", data);
             Notify.success("Successfully Registered");
             navigate("/");
             setName("");

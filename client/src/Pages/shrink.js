@@ -34,7 +34,7 @@ const Shrink = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `https://inventory-manager-production.up.railway.app/${existingItem.id}`,
+                    `http://localhost:4000/api/v1/products/shrink-products${existingItem.id}`,
                     product
                 );
                 toast.success(`${item} items have been removed`);

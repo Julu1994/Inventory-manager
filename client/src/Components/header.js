@@ -31,9 +31,7 @@ const Header = () => {
     };
     const logout = async () => {
         try {
-            await axios.get(
-                "https://inventory-manager-production.up.railway.app/auth/logout"
-            );
+            await axios.get("http://localhost:4000/api/v1/auth/logout");
             dispatch(userActions.notUser());
             navigate("/login");
             Notify.success("User logout");

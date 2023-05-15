@@ -19,7 +19,7 @@ const Login = () => {
 
     const getUser = async () => {
         const user = await axios.get(
-            "https://inventory-manager-production.up.railway.app/auth/loggedIn"
+            "http://localhost:4000/api/v1/auth/loginedIn"
         );
         if (user.data.id) {
             dispatch(userActions.isUser());
@@ -33,10 +33,7 @@ const Login = () => {
             password,
         };
         try {
-            await axios.post(
-                "https://inventory-manager-production.up.railway.app/auth/login",
-                data
-            );
+            await axios.post("http://localhost:4000/api/v1/auth/login", data);
             getUser();
             Notify.success("Successful login");
             navigate("/");

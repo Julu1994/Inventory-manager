@@ -13,6 +13,7 @@ export const getProducts = async (req, res) => {
 };
 
 export const addNewProducts = async (req, res) => {
+  console.log(req.user);
   try {
     const { name, details, price, quantity, location, catagory, type, url } =
       req.body;

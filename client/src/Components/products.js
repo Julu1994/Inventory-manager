@@ -32,7 +32,7 @@ const Products = () => {
     React.useEffect(() => {
         const getProducts = async () => {
             const res = await axios.get(
-                "https://inventory-manager-production.up.railway.app/"
+                "http://localhost:4000/api/v1/products/get-products"
             );
             dispatch(productsAction.storeProducts(res.data));
         };

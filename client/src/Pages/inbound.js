@@ -28,7 +28,7 @@ const Inbound = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `https://inventory-manager-production.up.railway.app/${existingItem.id}`,
+                    `http://localhost:4000/api/v1/products/inbound-products/${existingItem.id}`,
                     product
                 );
                 toast.success(`${item} items have been added`);
