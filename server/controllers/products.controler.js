@@ -166,7 +166,8 @@ export const inboundProducts = async (req, res) => {
       });
     }
 
-    existingProduct.quantity = existingProduct.quantity + quantity;
+    existingProduct.quantity =
+      parseInt(existingProduct.quantity) + parseInt(quantity);
     const savedProduct = await existingProduct.save();
     res.json(savedProduct);
   } catch (error) {

@@ -9,18 +9,11 @@ import axios from "axios";
 const Inbound = () => {
     const [item, setItem] = React.useState(0);
     const existingItem = useSelector((state) => state.editProductInfo.data);
-    const totalItem = parseInt(item) + parseInt(existingItem.quantity);
 
-    const product = {
-        name: existingItem.name,
-        details: existingItem.details,
-        price: existingItem.price,
-        quantity: totalItem,
-        location: existingItem.location,
-        type: existingItem.type,
-        catagory: existingItem.catagory,
-        url: existingItem.url,
+    const productQuantity = {
+        quantity: item,
     };
+    console.log(existingItem.id);
     const inboundItem = async (event) => {
         event.preventDefault();
         try {
@@ -29,7 +22,7 @@ const Inbound = () => {
             } else {
                 await axios.put(
                     `http://localhost:4000/api/v1/products/inbound-products/${existingItem.id}`,
-                    product
+                    productQuantity
                 );
                 toast.success(`${item} items have been added`);
                 setItem(0);
