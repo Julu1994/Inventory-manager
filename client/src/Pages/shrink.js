@@ -6,26 +6,19 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { shrinkReasons } from "../Components/inputOption";
+import { config } from "../config";
 
 const Shrink = () => {
     const [item, setItem] = React.useState(0);
     const [reason, setReason] = React.useState("quality");
     const existingItem = useSelector((state) => state.editProductInfo.data);
-    const totalItem = parseInt(existingItem.quantity) - parseInt(item);
 
     const handleChange = (event) => {
         setReason(event.target.value);
     };
 
     const product = {
-        name: existingItem.name,
-        details: existingItem.details,
-        price: existingItem.price,
-        quantity: totalItem,
-        location: existingItem.location,
-        type: existingItem.type,
-        catagory: existingItem.catagory,
-        url: existingItem.url,
+        quantity: item,
     };
     const shrinkItem = async (event) => {
         event.preventDefault();
@@ -34,7 +27,7 @@ const Shrink = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `http://localhost:4000/api/v1/products/shrink-products${existingItem.id}`,
+                    `${config.SERVER_LINK}/products/shrink-products/${existingItem.id}`,
                     product
                 );
                 toast.success(`${item} items have been removed`);

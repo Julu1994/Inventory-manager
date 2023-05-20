@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { config } from "../config";
 import { userActions } from "../Redux/Features/userSlice";
 
 export const UserId = () => {
@@ -8,7 +9,7 @@ export const UserId = () => {
     useEffect(() => {
         const getUser = async () => {
             const user = await axios.get(
-                "http://localhost:4000/api/v1/auth/loginedIn"
+                `${config.SERVER_LINK}/auth/loginedIn`
             );
             if (user.data.id) {
                 dispatch(userActions.isUser());

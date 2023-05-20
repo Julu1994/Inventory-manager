@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, ButtonGroup, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { productsAction } from "../Redux/Features/productsSlice";
+import { config } from "../config";
 
 const Products = () => {
     const catagory = useSelector((state) => state.filter.catagory);
@@ -32,7 +33,7 @@ const Products = () => {
     React.useEffect(() => {
         const getProducts = async () => {
             const res = await axios.get(
-                "http://localhost:4000/api/v1/products/get-products"
+                `${config.SERVER_LINK}/products/get-products`
             );
             dispatch(productsAction.storeProducts(res.data));
         };

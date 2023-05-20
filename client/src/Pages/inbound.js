@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import axios from "axios";
-
+import { config } from "../config";
 const Inbound = () => {
     const [item, setItem] = React.useState(0);
     const existingItem = useSelector((state) => state.editProductInfo.data);
@@ -21,7 +21,7 @@ const Inbound = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `http://localhost:4000/api/v1/products/inbound-products/${existingItem.id}`,
+                    `${config.SERVER_LINK}/products/inbound-products/${existingItem.id}`,
                     productQuantity
                 );
                 toast.success(`${item} items have been added`);

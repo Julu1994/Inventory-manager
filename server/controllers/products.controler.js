@@ -95,6 +95,7 @@ export const editProducts = async (req, res) => {
     existingProduct.name = name;
     existingProduct.details = details;
     existingProduct.price = price;
+    existingProduct.quantity = quantity;
     existingProduct.location = location;
     existingProduct.catagory = catagory;
     existingProduct.type = type;
@@ -133,7 +134,8 @@ export const shrinkProducts = async (req, res) => {
       });
     }
 
-    existingProduct.quantity = existingProduct.quantity - quantity;
+    existingProduct.quantity =
+      parseInt(existingProduct.quantity) - parseInt(quantity);
     const savedProduct = await existingProduct.save();
     res.json(savedProduct);
   } catch (error) {

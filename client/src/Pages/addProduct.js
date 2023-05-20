@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editActions } from "../Redux/Features/toggleSlice";
 import { useNavigate } from "react-router-dom";
 import InputForm from "../Components/inputForm";
+import { config } from "../config";
 
 //https://inventory-manager-production.up.railway.app/${inputEdit.id}
 
@@ -90,7 +91,7 @@ const AddProduct = () => {
         event.preventDefault();
         try {
             await axios.post(
-                "http://localhost:4000/api/v1/products/new-products",
+                `${config.SERVER_LINK}/products/new-products`,
                 product
             );
             setName("");
@@ -109,7 +110,7 @@ const AddProduct = () => {
         event.preventDefault();
         try {
             await axios.put(
-                `http://localhost:4000/api/v1/products/update-products/${inputEdit.id}`,
+                `${config.SERVER_LINK}/products/update-products/${inputEdit.id}`,
                 product
             );
             dispatch(editActions.editToggle());

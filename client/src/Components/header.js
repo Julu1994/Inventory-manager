@@ -18,6 +18,7 @@ import { searchAction } from "../Redux/Features/searchSlice";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton } from "@mui/material";
 import { navActions } from "../Redux/Features/navToggleSlice";
+import { config } from "../config";
 
 const Header = () => {
     const loggedInUser = useSelector((state) => state.user.user);
@@ -31,7 +32,7 @@ const Header = () => {
     };
     const logout = async () => {
         try {
-            await axios.get("http://localhost:4000/api/v1/auth/logout");
+            await axios.get(`${config.SERVER_LINK}/auth/logout`);
             dispatch(userActions.notUser());
             navigate("/login");
             Notify.success("User logout");

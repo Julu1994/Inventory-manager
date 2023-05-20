@@ -10,6 +10,7 @@ import axios from "axios";
 import { Notify } from "notiflix";
 import { userActions } from "../Redux/Features/userSlice";
 import { useDispatch } from "react-redux";
+import { config } from "../config";
 
 const Login = () => {
     const [email, setEmail] = React.useState("");
@@ -18,9 +19,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const getUser = async () => {
-        const user = await axios.get(
-            "http://localhost:4000/api/v1/auth/loginedIn"
-        );
+        const user = await axios.get(`${config.SERVER_LINK}/auth/loginedIn`);
         if (user.data.id) {
             dispatch(userActions.isUser());
         }
@@ -33,7 +32,7 @@ const Login = () => {
             password,
         };
         try {
-            await axios.post("http://localhost:4000/api/v1/auth/login", data);
+            await axios.post(`${config.SERVER_LINK}/auth/login`, data);
             getUser();
             Notify.success("Successful login");
             navigate("/");

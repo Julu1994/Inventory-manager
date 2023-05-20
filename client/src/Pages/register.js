@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Notify } from "notiflix";
+import { config } from "../config";
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -26,7 +27,7 @@ const Register = () => {
             confirm,
         };
         try {
-            await axios.post("http://localhost:4000/api/v1/auth/signup", data);
+            await axios.post(`${config.SERVER_LINK}/auth/signup`, data);
             Notify.success("Successfully Registered");
             navigate("/");
             setName("");

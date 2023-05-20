@@ -11,6 +11,7 @@ import { editDataAction } from "../Redux/Features/editDataSlice";
 import CardAction from "./SubComponents/CardAction";
 import Notiflix from "notiflix";
 import { productsAction } from "../Redux/Features/productsSlice";
+import { config } from "../config";
 
 const ProductCard = (props) => {
     const {
@@ -44,11 +45,11 @@ const ProductCard = (props) => {
     };
     const deleteProduct = async () => {
         await axios.delete(
-            `http://localhost:4000/api/v1/products/remove-products/${id}`
+            `${config.SERVER_LINK}/products/remove-products/${id}`
         );
         const getProducts = async () => {
             const res = await axios.get(
-                "http://localhost:4000/api/v1/products/get-products"
+                `${config.SERVER_LINK}/products/get-products`
             );
             dispatch(productsAction.storeProducts(res.data));
         };

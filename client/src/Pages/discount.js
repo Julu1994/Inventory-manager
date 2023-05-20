@@ -5,6 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { config } from "../config";
 
 const Discount = () => {
     const [parcentage, setParcentage] = React.useState(0);
@@ -29,7 +30,7 @@ const Discount = () => {
                 toast.error("Please write a valid number");
             } else {
                 await axios.put(
-                    `http://localhost:4000/api/v1/products/update-products/${existingItem.id}`,
+                    `${config.SERVER_LINK}/products/update-products/${existingItem.id}`,
                     product
                 );
                 toast.success(
