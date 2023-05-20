@@ -9,8 +9,6 @@ import { useNavigate } from "react-router-dom";
 import InputForm from "../Components/inputForm";
 import { config } from "../config";
 
-//https://inventory-manager-production.up.railway.app/${inputEdit.id}
-
 const AddProduct = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
