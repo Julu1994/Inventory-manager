@@ -44,76 +44,97 @@ const Login = () => {
     };
 
     return (
-        <div className="log">
-            <Typography
-                variant="h5"
-                sx={{ textAlign: "center", mb: "3rem", color: "#000080" }}>
-                Inventory Manager
-            </Typography>
-            <Card sx={{ minWidth: 275 }}>
-                <form onSubmit={handleLogin}>
-                    <Typography
-                        variant="h5"
-                        sx={{ textAlign: "center", mt: "1rem" }}>
-                        Login
-                    </Typography>
-                    <CardContent sx={{ textAlign: "center" }}>
-                        <TextField
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            id="standard-basic"
-                            variant="standard"
-                            label="Email"
-                            sx={{ width: "100%", mt: "1rem" }}
-                        />
-                        <TextField
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            id="standard-password-input"
-                            label="Password"
-                            type="password"
-                            autoComplete="current-password"
-                            variant="standard"
-                            sx={{ width: "100%", mt: "1rem" }}
-                        />
-                    </CardContent>
-                    <CardActions
-                        sx={{ display: "flex", justifyContent: "center" }}>
-                        <Button
-                            variant="contained"
-                            size="big"
-                            type="submit"
-                            sx={{
-                                width: "100%",
-                                mt: "1rem",
-                            }}>
-                            Login
-                        </Button>
-                    </CardActions>
-                </form>
-                <div>
-                    <p
-                        style={{
-                            fontSize: ".8rem",
-                            paddingLeft: "1rem",
+        <div className="login-wrapper">
+            <div className="log">
+                <Typography
+                    variant="h5"
+                    sx={{ textAlign: "center", mb: "3rem", color: "#000080" }}>
+                    Inventory Manager
+                </Typography>
+                <div className="login-form">
+                    <Card
+                        sx={{
+                            minWidth: 275,
+                            background: "transparent",
+                            padding: "0",
+                            margin: "0",
+                            boxShadow: "none",
                         }}>
-                        Don't have an account ?
-                    </p>
-                    <p
-                        style={{
-                            fontSize: ".8rem",
-                            paddingBottom: "1rem",
-                            paddingLeft: "1rem",
-                        }}>
-                        <Link to="/register" style={{ textDecoration: "none" }}>
-                            Register here
-                        </Link>
-                    </p>
+                        <form onSubmit={handleLogin} className="login-form">
+                            <Typography
+                                variant="h5"
+                                sx={{ textAlign: "center" }}>
+                                Login
+                            </Typography>
+                            <CardContent sx={{ textAlign: "center" }}>
+                                <TextField
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    id="standard-basic"
+                                    variant="standard"
+                                    label="Email"
+                                    sx={{ width: "100%", mt: "1rem" }}
+                                />
+                                <TextField
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    id="standard-password-input"
+                                    label="Password"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    variant="standard"
+                                    sx={{ width: "100%", mt: "1rem" }}
+                                />
+                            </CardContent>
+                            <CardActions
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}>
+                                <Button
+                                    variant="contained"
+                                    size="big"
+                                    type="submit"
+                                    sx={{
+                                        width: "100%",
+                                        mt: "1rem",
+                                    }}>
+                                    Login
+                                </Button>
+                            </CardActions>
+                        </form>
+                        <div>
+                            <p
+                                style={{
+                                    fontSize: ".8rem",
+                                    paddingLeft: "1rem",
+                                }}>
+                                Don't have an account ?
+                            </p>
+                            <p
+                                style={{
+                                    fontSize: ".8rem",
+                                    paddingBottom: "1rem",
+                                    paddingLeft: "1rem",
+                                }}>
+                                <Link
+                                    to="/register"
+                                    style={{
+                                        textDecoration: "none",
+                                        margin: "0",
+                                    }}>
+                                    Register here
+                                </Link>
+                            </p>
+                        </div>
+                    </Card>
                 </div>
-            </Card>
-            <Alert sx={{ mt: "2rem" }} severity="info">
-                Demo Account: demo@gmail.com Password: demo123
-            </Alert>
+                <Alert sx={{ mt: "2rem" }} severity="info">
+                    Demo Account: demo@gmail.com Password: demo123
+                </Alert>
+            </div>
         </div>
     );
 };
