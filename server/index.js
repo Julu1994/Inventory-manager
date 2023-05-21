@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { route } from './routes/index.js';
+import { productsRoutes } from './routes/products.routes.js';
+import { userRoutes } from './routes/user.routes.js';
 const app = express();
 dotenv.config();
 
@@ -15,7 +16,9 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use('/api/v1', route);
+app.use('/api/v1', productsRoutes);
+app.use('/api/v1', userRoutes);
+
 mongoose.connect(process.env.DB_LINK, (err) => {
   if (err) return console.error(err);
   console.log('Succcessfully connected to MongoDB');

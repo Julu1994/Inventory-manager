@@ -1,10 +1,9 @@
 import express from 'express';
-import { ProductModel } from '../models/productModel.js';
+import { ProductModel } from '../models/product.model.js';
 export const router = express.Router();
 
 export const getProducts = async (req, res) => {
   try {
-    console.log(req.user);
     const data = await ProductModel.find({ user: req.user });
     res.json(data);
   } catch (error) {
@@ -50,8 +49,7 @@ export const removeProducts = async (req, res) => {
       return res.status(400).json({
         error: 'Sorry!!! not found anything to delete....',
       });
-    if (existedProduct.user.toString() !== req.user) {
-      //console.log(existedProduct.user.toString() !== req.user);
+    if (existedProduct.user.toString() !== req.user.toString()) {
       return res.status(400).json({
         error: 'Error! Unauthorised action',
       });
