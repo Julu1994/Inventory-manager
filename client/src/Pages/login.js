@@ -46,11 +46,6 @@ const Login = () => {
     return (
         <div className="login-wrapper">
             <div className="log">
-                <Typography
-                    variant="h5"
-                    sx={{ textAlign: "center", mb: "3rem", color: "#000080" }}>
-                    Inventory Manager
-                </Typography>
                 <div className="login-form">
                     <Card
                         sx={{
@@ -61,12 +56,16 @@ const Login = () => {
                             boxShadow: "none",
                         }}>
                         <form onSubmit={handleLogin} className="login-form">
-                            <Typography
-                                variant="h5"
-                                sx={{ textAlign: "center" }}>
-                                Login
-                            </Typography>
-                            <CardContent sx={{ textAlign: "center" }}>
+                            <CardContent
+                                sx={{
+                                    textAlign: "center",
+                                    paddingTop: "2rem",
+                                }}>
+                                <Typography
+                                    variant="h5"
+                                    sx={{ textAlign: "center" }}>
+                                    Login
+                                </Typography>
                                 <TextField
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -92,6 +91,7 @@ const Login = () => {
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
+                                    flexDirection: "column",
                                 }}>
                                 <Button
                                     variant="contained"
@@ -103,32 +103,32 @@ const Login = () => {
                                     }}>
                                     Login
                                 </Button>
+                                <div>
+                                    <p
+                                        style={{
+                                            fontSize: ".8rem",
+                                            paddingLeft: "1rem",
+                                        }}>
+                                        Don't have an account ?
+                                    </p>
+                                    <p
+                                        style={{
+                                            fontSize: ".8rem",
+                                            paddingBottom: "1rem",
+                                            paddingLeft: "1rem",
+                                        }}>
+                                        <Link
+                                            to="/register"
+                                            style={{
+                                                textDecoration: "none",
+                                                margin: "0",
+                                            }}>
+                                            Register here
+                                        </Link>
+                                    </p>
+                                </div>
                             </CardActions>
                         </form>
-                        <div>
-                            <p
-                                style={{
-                                    fontSize: ".8rem",
-                                    paddingLeft: "1rem",
-                                }}>
-                                Don't have an account ?
-                            </p>
-                            <p
-                                style={{
-                                    fontSize: ".8rem",
-                                    paddingBottom: "1rem",
-                                    paddingLeft: "1rem",
-                                }}>
-                                <Link
-                                    to="/register"
-                                    style={{
-                                        textDecoration: "none",
-                                        margin: "0",
-                                    }}>
-                                    Register here
-                                </Link>
-                            </p>
-                        </div>
                     </Card>
                 </div>
                 <Alert sx={{ mt: "2rem" }} severity="info">
