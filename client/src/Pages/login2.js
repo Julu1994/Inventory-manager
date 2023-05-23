@@ -12,12 +12,12 @@ import { useDispatch } from "react-redux";
 import { config } from "../config";
 import styled from "@emotion/styled";
 import { CssBaseline } from "@mui/material";
+import backgroundImage from "../utils/assetes/midjourney1.png";
 
 const StyledCard = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
     padding: theme.spacing(0),
-    maxWidth: 400,
     color: theme.palette.text.primary,
 }));
 
@@ -63,12 +63,15 @@ const Login = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    background: `linear-gradient(90deg, rgba(246, 246, 246, 0.975) 0%, rgba(231, 231, 233, 0.42) 35%, rgba(248, 249, 249, 0.822) 100%), url(${backgroundImage})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
                 }}>
-                <Grid item xs={12} sm={8} md={4}>
+                <Grid item xs={10} sm={8} md={3.5}>
                     <StyledCard elevation={6} square>
                         <Card
                             sx={{
-                                minWidth: 275,
                                 background: "transparent",
                                 padding: "0",
                                 margin: "0",
