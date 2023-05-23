@@ -4,7 +4,7 @@ import Homepage from "./Pages/homepage";
 import AddProduct from "./Pages/addProduct";
 import Inbound from "./Pages/inbound";
 import Shrink from "./Pages/shrink";
-import Login from "./Pages/login";
+import Login2 from "./Pages/login2";
 import Register from "./Pages/register";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -27,7 +27,7 @@ function App() {
                 <Route path="/discount" element={<Discount />} />
                 <Route
                     path="/login"
-                    element={!user ? <Login /> : <Warning />}
+                    element={!user ? <Login2 /> : <Warning />}
                 />
                 <Route path="/register" element={<Register />} />
             </Routes>
