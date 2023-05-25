@@ -5,12 +5,13 @@ import AddProduct from "./Pages/addProduct";
 import Inbound from "./Pages/inbound";
 import Shrink from "./Pages/shrink";
 import Login from "./Pages/login";
-import Register from "./Pages/register";
+import Signup from "./Pages/signup";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Warning from "./Pages/warning";
 import Discount from "./Pages/discount";
 import { UserId } from "./Components/getUser";
+
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -29,7 +30,7 @@ function App() {
                     path="/login"
                     element={!user ? <Login /> : <Warning />}
                 />
-                <Route path="/register" element={<Register />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </Router>
     );
