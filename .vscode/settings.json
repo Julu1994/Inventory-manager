@@ -2,5 +2,7 @@
     "indentRainbow.lightIndicatorStyleLineWidth": 2,
     "editor.tabSize": 2,
     "workbench.tree.indent": 4,
-    "prettier.useTabs": true
+    "prettier.useTabs": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
 }

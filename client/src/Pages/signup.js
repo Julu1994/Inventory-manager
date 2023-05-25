@@ -24,7 +24,7 @@ const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirm, setConfirm] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
     const navigate = useNavigate();
 
     const handleRegister = async (event) => {
@@ -33,7 +33,7 @@ const Signup = () => {
             name,
             email,
             password,
-            confirm,
+            repeatPassword,
         };
         try {
             await axios.post(`${config.SERVER_LINK}/auth/signup`, data);
@@ -42,7 +42,7 @@ const Signup = () => {
             setName("");
             setEmail("");
             setPassword("");
-            setConfirm("");
+            setRepeatPassword("");
         } catch {
             Notify.failure("Error! Something went wrong!");
         }
@@ -111,56 +111,37 @@ const Signup = () => {
                             sx={{ width: "100%", mt: "1rem" }}
                         />
                         <TextField
-                            onChange={(e) => setConfirm(e.target.value)}
-                            value={confirm}
+                            onChange={(e) =>  setRepeatPassword(e.target.value)}
+                            value={repeatPassword}
                             id="confirm-password-input"
                             label="Confirm password"
                             type="password"
                             autoComplete="current-password"
                             variant="standard"
-                            sx={{ width: "100%", mt: "1rem" }}
-                        />
-                                </CardContent>
-                                <CardActions
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        flexDirection: "column",
-                                    }}>
-                                    <Button
-                                        variant="contained"
-                                        size="big"
-                                        type="submit"
-                                        sx={{
-                                            width: "100%",
-                                            mt: "1rem",
-                                        }}>
-                                        Login
-                                    </Button>
-                                    <div>
-                                        <p
-                                            style={{
-                                                fontSize: ".8rem",
-                                                paddingLeft: ".1rem",
-                                            }}>
-                                            Don't have an account ?
-                                        </p>
-                                        <p
-                                            style={{
-                                                fontSize: ".8rem",
-                                                paddingBottom: "1rem",
-                                                paddingLeft: ".1rem",
-                                            }}>
-                                            <Link
-                                                to="/login"
-                                                style={{
-                                                    textDecoration: "none",
-                                                    margin: "0",
-                                                }}>
-                                                Register here
-                                            </Link>
-                                        </p>
-                                    </div>
+                            sx={{ width: "100%", mt: "1rem" }}/>
+                        </CardContent>
+                        <CardActions
+                            sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            }}>
+                          <Button
+                          variant="contained"
+                          size="big"
+                          type="submit"
+                          sx={{
+                          width: "100%",
+                          mt: "1rem",
+                          }}>
+                        Signup
+                      </Button>
+                    <Typography variant="p" component="p" sx={{mt: "2rem", mb: "2rem",}}>
+                      Already have an account ? 
+                      <Link to="/login" style={{textDecoration: "none", marginLeft: ".5rem"}}>
+                        Login here
+                      </Link>
+                    </Typography>
                                 </CardActions>
                             </form>
                         </Card>
