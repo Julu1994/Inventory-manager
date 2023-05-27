@@ -1,5 +1,5 @@
-import "./discount.scss";
-import { Fab, TextField, Typography } from "@mui/material";
+
+import { Box, Fab, TextField, Typography } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -43,18 +43,24 @@ const Discount = () => {
         }
     };
     return (
-        <div className="discount">
+        <div>
             <Typography
                 variant="h5"
                 gutterBottom
-                sx={{ textAlign: "center", mt: "4rem" }}>
+                sx={{ textAlign: "center", mt: "4rem" }}
+            >
                 Make a discount
             </Typography>
-            <div className="discount-input">
+            <Box
+                sx={{
+                    width: { xs: "90%", sm: "50%", md: "30%", lg: "20%" },
+                    margin: "3rem auto",
+                }}
+            >
                 <TextField
                     value={parcentage}
                     onChange={(e) => setParcentage(e.target.value)}
-                    sx={{ width: "100%}" }}
+                    sx={{ width: "100%" }}
                     id="standard-number"
                     label="Parcentage of discount"
                     type="number"
@@ -63,19 +69,26 @@ const Discount = () => {
                     }}
                     variant="standard"
                 />
-                <div className="discount-button">
+                <Box
+                    sx={{
+                        margin: "2rem auto",
+                        width: "max-content",
+                    }}
+                >
                     <Fab
                         onClick={handleDiscount}
                         variant="extended"
                         size="medium"
                         color="primary"
-                        aria-label="add">
+                        aria-label="add"
+                    >
                         <RemoveCircleOutlineIcon sx={{ mr: 1 }} />
                         Execute Discount
                     </Fab>
-                </div>
-            </div>
+                </Box>
+            </Box>
         </div>
+
     );
 };
 
