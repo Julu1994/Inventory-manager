@@ -61,7 +61,7 @@ const Products = () => {
                     );
                 })}
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{ justifyContent: "center" }}>
                 <Grid item lg={12}>
                     {filterByName.length > 18 && (
                         <div

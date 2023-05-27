@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Homepage from "./Pages/homepage2";
+import Homepage from "./Pages/homepage";
 import AddProduct from "./Pages/addProduct";
 import Inbound from "./Pages/inbound";
 import Shrink from "./Pages/shrink";
