@@ -1,10 +1,8 @@
 import React from "react";
 import ProductCard from "./productCard";
-import axios from "axios";
 import { Button, ButtonGroup, Grid } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { productsAction } from "../Redux/Features/productsSlice";
-import { config } from "../config";
+import { useSelector } from "react-redux";
+import { useGetProductsQuery } from "../Redux/api/productsApiSlice";
 
 const Products = () => {
     const catagory = useSelector((state) => state.filter.catagory);
@@ -14,10 +12,17 @@ const Products = () => {
     };
     const [a, setA] = React.useState(0);
     const [b, setB] = React.useState(deviceWidth() ? 10 : 18);
-    const dispatch = useDispatch();
-    const allProducts = useSelector((state) => state.products.items);
+    const { data: allProducts, isError, isLoading } = useGetProductsQuery();
+    const name = useSelector((state) => state.search.name);
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
-    const productsDiscount = allProducts.filter((item) =>
+    if (isError) {
+        return <div>Error fetching products</div>;
+    }
+
+    const productsDiscount = allProducts?.filter((item) =>
         item.type.toLowerCase().includes(type.toLowerCase())
     );
 
@@ -25,27 +30,15 @@ const Products = () => {
         item.catagory.toLowerCase().includes(catagory.toLowerCase())
     );
 
-    const name = useSelector((state) => state.search.name);
-
     const filterByName = products?.filter((item) =>
         item.name.toLowerCase().includes(name.toLowerCase())
     );
-    React.useEffect(() => {
-        const getProducts = async () => {
-            const res = await axios.get(
-                `${config.SERVER_LINK}/products/get-products`
-            );
-            dispatch(productsAction.storeProducts(res.data));
-        };
-        getProducts();
-    }, [dispatch]);
-
     return (
         <>
             <Grid container spacing={2}>
                 {filterByName.slice(a, b).map((items) => {
                     return (
-                        <Grid item lg={2} sm={4} xs={6}>
+                        <Grid item lg={2} sm={4} xs={6} key={items._id}>
                             <ProductCard
                                 id={items._id}
                                 details={items.details}
