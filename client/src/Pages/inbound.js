@@ -1,5 +1,4 @@
-import "./inbound.scss";
-import { Fab, TextField, Typography } from "@mui/material";
+import { Box, Fab, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -32,18 +31,24 @@ const Inbound = () => {
         }
     };
     return (
-        <div className="inbound">
+        <div>
             <Typography
                 variant="h5"
                 gutterBottom
-                sx={{ textAlign: "center", mt: "4rem" }}>
+                sx={{ textAlign: "center", mt: "4rem" }}
+            >
                 Inbound
             </Typography>
-            <div className="inbound-input">
+            <Box
+                sx={{
+                    width: { xs: "90%", sm: "50%", md: "30%", lg: "20%" },
+                    margin: "3rem auto",
+                }}
+            >
                 <TextField
                     value={item}
                     onChange={(e) => setItem(e.target.value)}
-                    sx={{ width: "100%}" }}
+                    sx={{ width: "100%" }}
                     id="standard-number"
                     label="Number of items"
                     type="number"
@@ -52,18 +57,26 @@ const Inbound = () => {
                     }}
                     variant="standard"
                 />
-                <div className="inbound-button">
+                <Box
+                    sx={{
+                        margin: "2rem auto",
+                        width: "max-content",
+                    }}
+                >
                     <Fab
                         onClick={inboundItem}
                         variant="extended"
                         size="medium"
                         color="primary"
-                        aria-label="add">
-                        <AddIcon sx={{ mr: 1 }} /> Add Item
+                        aria-label="add"
+                    >
+                        <AddIcon sx={{ mr: 1 }} />
+                        Add Item
                     </Fab>
-                </div>
-            </div>
+                </Box>
+            </Box>
         </div>
+
     );
 };
 
