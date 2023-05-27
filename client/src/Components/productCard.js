@@ -74,7 +74,7 @@ const ProductCard = (props) => {
     };
     const discountColor = type === "Discount" ? "red" : "text.secondary";
     return (
-        <Card sx={{ maxWidth: 145, mt: "1.4rem", ml: "auto", mr: "auto" }}>
+        <Card sx={{ maxWidth: 145, mt: "1rem", ml: "auto", mr: "auto" }}>
             <CardActionArea>
                 <CardMedia
                     component="img"

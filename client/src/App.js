@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./Components/header";
-import Homepage from "./Pages/homepage";
+import Homepage from "./Pages/homepage2";
 import AddProduct from "./Pages/addProduct";
 import Inbound from "./Pages/inbound";
 import Shrink from "./Pages/shrink";
@@ -19,7 +18,6 @@ function App() {
     UserId();
     return (
         <Router>
-            <Header />
             <Routes>
                 <Route path="/" element={<Homepage />} />
                 <Route path="/add-product" element={<AddProduct />} />

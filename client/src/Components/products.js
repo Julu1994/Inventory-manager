@@ -42,96 +42,104 @@ const Products = () => {
 
     return (
         <>
-            {filterByName.slice(a, b).map((item) => {
-                return (
-                    <Grid item xs={6} sm={3} md={3} lg={2} key={item._id}>
-                        <ProductCard
-                            id={item._id}
-                            details={item.details}
-                            name={item.name}
-                            price={item.price}
-                            quantity={item.quantity}
-                            location={item.location}
-                            catagory={item.catagory}
-                            type={item.type}
-                            url={item.url}
-                        />
-                    </Grid>
-                );
-            })}
+            <Grid container spacing={2}>
+                {filterByName.slice(a, b).map((items) => {
+                    return (
+                        <Grid item lg={2} sm={4} xs={6}>
+                            <ProductCard
+                                id={items._id}
+                                details={items.details}
+                                name={items.name}
+                                price={items.price}
+                                quantity={items.quantity}
+                                location={items.location}
+                                catagory={items.catagory}
+                                type={items.type}
+                                url={items.url}
+                            />
+                        </Grid>
+                    );
+                })}
+            </Grid>
+            <Grid container spacing={2}>
+                <Grid item lg={12}>
+                    {filterByName.length > 18 && (
+                        <div
+                            style={{
+                                width: "100%",
+                                textAlign: "center",
+                                marginTop: "1rem",
+                            }}>
+                            <ButtonGroup aria-label="outlined button group">
+                                <Button
+                                    onClick={() => {
+                                        if (deviceWidth()) {
+                                            setA(0);
+                                            setB(10);
+                                        } else {
+                                            setA(0);
+                                            setB(18);
+                                        }
+                                    }}>
+                                    1
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        if (deviceWidth()) {
+                                            setA(10);
+                                            setB(20);
+                                        } else {
+                                            setA(19);
+                                            setB(36);
+                                        }
+                                    }}>
+                                    2
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        if (deviceWidth()) {
+                                            setA(20);
+                                            setB(30);
+                                        } else {
+                                            setA(37);
+                                            setB(54);
+                                        }
+                                    }}>
+                                    3
+                                </Button>
+                                {deviceWidth() && (
+                                    <>
+                                        <Button
+                                            onClick={() => {
+                                                setA(30);
+                                                setB(40);
+                                            }}>
+                                            4
+                                        </Button>
+                                        <Button
+                                            onClick={() => {
+                                                setA(40);
+                                                setB(50);
+                                            }}>
+                                            5
+                                        </Button>
+                                        <Button
+                                            onClick={() => {
+                                                setA(50);
+                                                setB(60);
+                                            }}>
+                                            6
+                                        </Button>
+                                    </>
+                                )}
+                            </ButtonGroup>
+                        </div>
+                    )}
 
-            {filterByName.length > 18 && (
-                <div
-                    style={{
-                        width: "100%",
-                        textAlign: "center",
-                        marginTop: "2rem",
-                    }}>
-                    <ButtonGroup aria-label="outlined button group">
-                        <Button
-                            onClick={() => {
-                                if (deviceWidth()) {
-                                    setA(0);
-                                    setB(10);
-                                } else {
-                                    setA(0);
-                                    setB(18);
-                                }
-                            }}>
-                            1
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (deviceWidth()) {
-                                    setA(10);
-                                    setB(20);
-                                } else {
-                                    setA(19);
-                                    setB(36);
-                                }
-                            }}>
-                            2
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (deviceWidth()) {
-                                    setA(20);
-                                    setB(30);
-                                } else {
-                                    setA(37);
-                                    setB(54);
-                                }
-                            }}>
-                            3
-                        </Button>
-                        {deviceWidth() && (
-                            <>
-                                <Button
-                                    onClick={() => {
-                                        setA(30);
-                                        setB(40);
-                                    }}>
-                                    4
-                                </Button>
-                                <Button
-                                    onClick={() => {
-                                        setA(40);
-                                        setB(50);
-                                    }}>
-                                    5
-                                </Button>
-                                <Button
-                                    onClick={() => {
-                                        setA(50);
-                                        setB(60);
-                                    }}>
-                                    6
-                                </Button>
-                            </>
-                        )}
-                    </ButtonGroup>
-                </div>
-            )}
+                </Grid>
+            </Grid>
+
+
         </>
     );
 };
