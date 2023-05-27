@@ -1,5 +1,4 @@
-import "./shrink.scss";
-import { Fab, TextField, Typography } from "@mui/material";
+import { Box, Fab, TextField, Typography } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -39,18 +38,24 @@ const Shrink = () => {
         }
     };
     return (
-        <div className="shrink">
+        <div>
             <Typography
                 variant="h5"
                 gutterBottom
-                sx={{ textAlign: "center", mt: "4rem" }}>
+                sx={{ textAlign: "center", mt: "4rem" }}
+            >
                 Shrink
             </Typography>
-            <div className="shrink-input">
+            <Box
+                sx={{
+                    width: { xs: "90%", sm: "50%", md: "30%", lg: "20%" },
+                    margin: "3rem auto",
+                }}
+            >
                 <TextField
                     value={item}
                     onChange={(e) => setItem(e.target.value)}
-                    sx={{ width: "100%}" }}
+                    sx={{ width: "100%" }}
                     id="standard-number"
                     label="Number of items"
                     type="number"
@@ -59,38 +64,44 @@ const Shrink = () => {
                     }}
                     variant="standard"
                 />
-                <div>
-                    <TextField
-                        sx={{ mt: "2rem" }}
-                        id="standard-select-currency-native"
-                        select
-                        label="Cause of shrinkage"
-                        value={reason}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        variant="standard">
-                        {shrinkReasons.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </TextField>
-                </div>
-                <div className="shrink-button">
+                <TextField
+                    sx={{ mt: "2rem", width: "100%" }}
+                    id="standard-select-currency-native"
+                    select
+                    label="Cause of shrinkage"
+                    value={reason}
+                    onChange={handleChange}
+                    SelectProps={{
+                        native: true,
+                    }}
+                    variant="standard"
+                >
+                    {shrinkReasons.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+                </TextField>
+                <Box
+                    sx={{
+                        margin: "2rem auto",
+                        width: "max-content",
+                    }}
+                >
                     <Fab
                         onClick={shrinkItem}
                         variant="extended"
                         size="medium"
                         color="primary"
-                        aria-label="add">
+                        aria-label="add"
+                    >
                         <RemoveCircleOutlineIcon sx={{ mr: 1 }} />
                         Shrink Item
                     </Fab>
-                </div>
-            </div>
+                </Box>
+            </Box>
         </div>
+
     );
 };
 
