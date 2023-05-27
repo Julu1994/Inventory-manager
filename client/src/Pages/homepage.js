@@ -30,16 +30,18 @@ const Homepage = () => {
           </Box>
 
           <Box>
-            <Drawer
-              variant="temporary"
-              open={navToggle}
-              onClose={() => dispatch(navActions.navToggleHide())}
-            >
-              <NavBar />
-            </Drawer>
+            <Hidden only={['lg']}>
+              <Drawer
+                variant="temporary"
+                open={navToggle}
+                onClose={() => dispatch(navActions.navToggleHide())}
+              >
+                <NavBar />
+              </Drawer>
+            </Hidden>
 
             <Grid container spacing={2}>
-              <Hidden only={['xs', 'sm']}>
+              <Hidden only={['xs', 'sm',]}>
                 <Grid item md={2.5}>
                   <NavBar />
                 </Grid>
