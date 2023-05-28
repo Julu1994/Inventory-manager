@@ -4,12 +4,21 @@ export const router = express.Router();
 
 export const getProducts = async (req, res) => {
   try {
-    const data = await ProductModel.find({ user: req.user });
-    res.json(data);
+    const { offset = 0, limit = 10, type, catagory, name } = req.query;
+
+    let query = { user: req.user };
+    if (type) query.type = type;
+    if (catagory) query.catagory = catagory;
+    if (name) query.name = { $regex: name, $options: "i" };
+    const total = await ProductModel.countDocuments(query);
+    const data = await ProductModel.find(query).skip(+offset).limit(+limit);
+    res.json({ data, total });
   } catch (error) {
-    res.status(500).json({ error: 'Not found data!' });
+    res.status(500).json({ error: 'Data not found!' });
   }
 };
+
+
 
 export const addNewProducts = async (req, res) => {
   console.log(req.user);

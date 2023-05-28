@@ -9,8 +9,9 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => '/products/get-products',
+      query: ({ page = 1, limit = 10, type = '', catagory = '' }) => `/products/get-products?offset=${(page - 1) * limit}&limit=${limit}&type=${type}&catagory=${catagory}`,
     }),
+
   }),
 });
 
