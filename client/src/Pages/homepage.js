@@ -54,6 +54,7 @@ const Homepage = () => {
         </>
       ) : (
         <div>
+          <Header />
           <div style={{ width: "100%", textAlign: "center" }}>
             <div>
               <StoreMallDirectoryTwoToneIcon
