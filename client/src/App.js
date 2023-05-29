@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import Warning from "./Pages/warning";
 import Discount from "./Pages/discount";
 import { UserId } from "./Components/getUser";
+import Admin from "./Pages/admin";
 
 
 axios.defaults.withCredentials = true;
@@ -29,6 +30,8 @@ function App() {
                     element={!user ? <Login /> : <Warning />}
                 />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/admin" element={<Admin />} />
+
             </Routes>
         </Router>
     );
