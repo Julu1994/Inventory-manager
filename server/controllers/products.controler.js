@@ -18,6 +18,15 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getProductCount = async (req, res) => {
+  try {
+    const productCount = await ProductModel.countDocuments({});
+    res.json({ count: productCount });
+  } catch (error) {
+    res.status(500).json({ error: 'Could not fetch product count' });
+  }
+};
+
 
 
 export const addNewProducts = async (req, res) => {

@@ -7,6 +7,7 @@ import {
   shrinkProducts,
   inboundProducts,
   getProducts,
+  getProductCount,
 } from '../controllers/products.controler.js';
 export const productsRoutes = express.Router();
 
@@ -16,3 +17,6 @@ productsRoutes.delete('/products/remove-products/:id', auth, removeProducts);
 productsRoutes.put('/products/update-products/:id', auth, editProducts);
 productsRoutes.put('/products/shrink-products/:id', auth, shrinkProducts);
 productsRoutes.put('/products/inbound-products/:id', auth, inboundProducts);
+
+//Admin routes
+productsRoutes.get('/admin/products-count', auth, getProductCount);
