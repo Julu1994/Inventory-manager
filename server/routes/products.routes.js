@@ -18,5 +18,3 @@ productsRoutes.put('/products/update-products/:id', auth, editProducts);
 productsRoutes.put('/products/shrink-products/:id', auth, shrinkProducts);
 productsRoutes.put('/products/inbound-products/:id', auth, inboundProducts);
 
-//Admin routes
-productsRoutes.get('/admin/products-count', auth, getProductCount);

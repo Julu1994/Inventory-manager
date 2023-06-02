@@ -5,6 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { productsRoutes } from './routes/products.routes.js';
 import { userRoutes } from './routes/user.routes.js';
+import { adminRoutes } from './routes/admin.route.js';
 const app = express();
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(
 app.use(cookieParser());
 app.use('/api/v1', productsRoutes);
 app.use('/api/v1', userRoutes);
+app.use('/api/v1', adminRoutes);
 
 mongoose.connect(process.env.DB_LINK, (err) => {
   if (err) return console.error(err);
