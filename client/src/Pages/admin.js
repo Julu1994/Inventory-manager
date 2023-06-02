@@ -7,6 +7,22 @@ import { config } from '../config';
 
 const Admin = () => {
   const [series, setSeries] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [chartLabels, setChartLabels] = useState([]);
+
+
+  useEffect(() => {
+    axios.get(`${config.SERVER_LINK}/admin/category-products-count`)
+      .then(response => {
+        const labels = response.data.map(item => item.category);
+        const data = response.data.map(item => item.count);
+        console.log(data);
+
+        setChartData(data);
+        setChartLabels(labels);
+      })
+      .catch(error => console.error(error));
+  }, []);
 
   useEffect(() => {
     axios.get(`${config.SERVER_LINK}/admin/daily-products-count`)
@@ -28,7 +44,7 @@ const Admin = () => {
       .catch(error => console.error(error));
   }, []);
 
-  const options = {
+  const inboundOptions = {
     chart: {
       type: 'line',
       zoom: {
@@ -37,7 +53,7 @@ const Admin = () => {
         autoScaleYaxis: true
       },
       toolbar: {
-        autoSelected: 'zoom'
+        show: false
       }
     },
     xaxis: {
@@ -45,13 +61,27 @@ const Admin = () => {
     },
     yaxis: {
       title: {
-        text: 'Products Count'
+        text: 'Number of products'
       },
     },
     dataLabels: {
       enabled: false
     },
   };
+  const categoryOption = {
+    labels: chartLabels,
+    legend: {
+      position: 'right',
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        legend: {
+          position: 'bottom',
+        }
+      }
+    }]
+  }
 
   return (
     <>
@@ -59,7 +89,15 @@ const Admin = () => {
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Chart options={options} series={series} type="line" />
+            <Chart options={inboundOptions} series={series} type="line" />
+          </Grid>
+          <Grid item xs={4}>
+            <Chart
+              options={categoryOption}
+              series={chartData}
+              type="pie"
+            />
+
           </Grid>
         </Grid>
       </Box>

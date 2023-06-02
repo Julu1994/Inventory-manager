@@ -25,3 +25,28 @@ export const getDailyProductCount = async (req, res) => {
     res.status(500).json({ error: "Could not fetch daily product count" });
   }
 };
+
+export const getProductsCountByCategory = async (req, res) => {
+  try {
+    const result = await ProductModel.aggregate([
+      {
+        $group: {
+          _id: '$catagory',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          category: '$_id',
+          count: 1
+        }
+      }
+    ]);
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Could not fetch category product count' });
+  }
+}
