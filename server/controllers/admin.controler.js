@@ -50,3 +50,28 @@ export const getProductsCountByCategory = async (req, res) => {
     res.status(500).json({ error: 'Could not fetch category product count' });
   }
 }
+
+export const getRemovedProductsPerDay = (req, res, next) => {
+  RemovedProduct.aggregate([
+    {
+      $group: {
+        _id: {
+          year: { $year: "$removedAt" },
+          month: { $month: "$removedAt" },
+          day: { $dayOfMonth: "$removedAt" },
+        },
+        count: { $sum: 1 }
+      }
+    }
+  ])
+    .then(results => {
+      res.status(200).json(results.map(result => ({
+        date: `${result._id.year}-${result._id.month}-${result._id.day}`,
+        count: result.count
+      })));
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
