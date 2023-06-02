@@ -1,5 +1,6 @@
 import express from 'express';
 import { ProductModel } from '../models/product.model.js';
+import { RemovedProductModel } from '../models/removedProduct.model.js';
 export const router = express.Router();
 
 export const getProducts = async (req, res) => {
@@ -61,11 +62,22 @@ export const removeProducts = async (req, res) => {
         error: 'Error! Unauthorised action',
       });
     }
+    await ProductModel.findByIdAndDelete(productID);
 
-    await existedProduct.delete();
-    res.json(existedProduct);
-  } catch (error) {
-    res.status(500).json({ error: 'Error! Something went wrong' });
+    const removedProduct = new RemovedProductModel({
+      productId: productID,
+      removedAt: new Date()
+    });
+    await removedProduct.save();
+
+    return res.status(200).json({
+      message: 'Product deleted successfully',
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      error: 'Something went wrong',
+    });
   }
 };
 

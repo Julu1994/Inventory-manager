@@ -61,7 +61,7 @@ const Admin = () => {
     },
     yaxis: {
       title: {
-        text: 'Number of products'
+        text: 'New Products'
       },
     },
     dataLabels: {
