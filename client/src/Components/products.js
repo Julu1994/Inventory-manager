@@ -28,6 +28,8 @@ const Products = () => {
 
     const totalPages = Math.ceil(allProducts?.total / itemsPerPage);
 
+    console.log(allProducts);
+
     return (
         <>
             <Grid container spacing={2}>
