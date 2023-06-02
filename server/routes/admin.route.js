@@ -1,9 +1,11 @@
 import express from 'express';
 import { auth } from '../middleware/auth.js';
 import {
+  getDailyProductCount,
   getProductCount,
-} from '../controllers/products.controler.js';
+} from '../controllers/admin.controler.js';
 export const adminRoutes = express.Router();
 
 
-productsRoutes.get('/admin/products-count', auth, getProductCount);
+adminRoutes.get('/admin/products-count', auth, getProductCount);
+adminRoutes.get('/admin/daily-products-count', auth, getDailyProductCount);

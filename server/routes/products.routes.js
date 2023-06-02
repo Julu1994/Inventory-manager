@@ -7,7 +7,6 @@ import {
   shrinkProducts,
   inboundProducts,
   getProducts,
-  getProductCount,
 } from '../controllers/products.controler.js';
 export const productsRoutes = express.Router();
 
