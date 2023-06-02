@@ -9,14 +9,13 @@ const Admin = () => {
   const [series, setSeries] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [chartLabels, setChartLabels] = useState([]);
-
+  const [removedSeries, setRemovedSeries] = useState([]);
 
   useEffect(() => {
     axios.get(`${config.SERVER_LINK}/admin/category-products-count`)
       .then(response => {
         const labels = response.data.map(item => item.category);
         const data = response.data.map(item => item.count);
-        console.log(data);
 
         setChartData(data);
         setChartLabels(labels);
@@ -44,7 +43,32 @@ const Admin = () => {
       .catch(error => console.error(error));
   }, []);
 
-  const inboundOptions = {
+  useEffect(() => {
+    axios.get(`${config.SERVER_LINK}/admin/removed-products-count`)
+      .then(response => {
+        console.log('Response:', response.data);
+
+        const data = response.data.map(item => {
+          return {
+            x: new Date(item.date).getTime(),
+            y: item.count
+          }
+        });
+
+        console.log('Data:', data);
+
+        setRemovedSeries([
+          {
+            name: "Products removed",
+            data: data
+          }
+        ]);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+
+  const addOptions = {
     chart: {
       type: 'line',
       zoom: {
@@ -68,6 +92,7 @@ const Admin = () => {
       enabled: false
     },
   };
+
   const categoryOption = {
     labels: chartLabels,
     legend: {
@@ -81,7 +106,32 @@ const Admin = () => {
         }
       }
     }]
-  }
+  };
+
+  const removedOptions = {
+    chart: {
+      type: 'bar',
+      zoom: {
+        type: 'x',
+        enabled: true,
+        autoScaleYaxis: true
+      },
+      toolbar: {
+        show: false
+      }
+    },
+    xaxis: {
+      type: 'datetime'
+    },
+    yaxis: {
+      title: {
+        text: 'Removed Products'
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+  };
 
   return (
     <>
@@ -89,7 +139,7 @@ const Admin = () => {
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Chart options={inboundOptions} series={series} type="line" />
+            <Chart options={addOptions} series={series} type="line" />
           </Grid>
           <Grid item xs={4}>
             <Chart
@@ -97,7 +147,11 @@ const Admin = () => {
               series={chartData}
               type="pie"
             />
-
+          </Grid>
+          <Grid item xs={4}>
+            {removedSeries && removedSeries.length > 0 &&
+              <Chart options={removedOptions} series={removedSeries} type="bar" />
+            }
           </Grid>
         </Grid>
       </Box>

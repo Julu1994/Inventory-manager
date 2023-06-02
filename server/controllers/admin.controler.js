@@ -1,4 +1,5 @@
 import { ProductModel } from '../models/product.model.js';
+import { RemovedProductModel } from '../models/removedProduct.model.js';
 export const getProductCount = async (req, res) => {
   try {
     const productCount = await ProductModel.countDocuments({});
@@ -52,7 +53,7 @@ export const getProductsCountByCategory = async (req, res) => {
 }
 
 export const getRemovedProductsPerDay = (req, res, next) => {
-  RemovedProduct.aggregate([
+  RemovedProductModel.aggregate([
     {
       $group: {
         _id: {
