@@ -70,7 +70,7 @@ const Admin = () => {
 
   const addOptions = {
     chart: {
-      type: 'line',
+      type: 'bar',
       zoom: {
         type: 'x',
         enabled: true,
@@ -139,7 +139,7 @@ const Admin = () => {
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Chart options={addOptions} series={series} type="line" />
+            <Chart options={addOptions} series={series} type="bar" />
           </Grid>
           <Grid item xs={4}>
             <Chart

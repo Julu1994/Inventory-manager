@@ -76,3 +76,29 @@ export const getRemovedProductsPerDay = (req, res, next) => {
       res.status(500).json({ error: err });
     });
 };
+export const getProductsQuantity = async (req, res) => {
+  try {
+    const data = await ProductModel.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: "%Y-%m-%d",
+              date: "$createdAt"
+            }
+          },
+          totalQuantity: {
+            $sum: "$quantity"
+          }
+        }
+      },
+      {
+        $sort: { "_id": 1 }
+      }
+    ]);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+};
