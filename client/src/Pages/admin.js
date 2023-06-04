@@ -5,206 +5,69 @@ import Chart from 'react-apexcharts';
 import axios from 'axios';
 import { config } from '../config';
 
+const defaultOptions = {
+  chart: {
+    type: 'bar',
+    zoom: {
+      type: 'x',
+      enabled: true,
+      autoScaleYaxis: true
+    },
+    toolbar: {
+      show: false
+    }
+  },
+  xaxis: {
+    type: 'datetime'
+  },
+  dataLabels: {
+    enabled: false
+  },
+};
+
 const Admin = () => {
-  const [series, setSeries] = useState([]);
-  const [chartData, setChartData] = useState([]);
-  const [chartLabels, setChartLabels] = useState([]);
-  const [removedSeries, setRemovedSeries] = useState([]);
-  const [productQuantities, setProductQuantities] = useState([]);
-  const [productTypeData, setProductTypeData] = useState([]);
-  const [productTypeLabels, setProductTypeLabels] = useState([]);
-
-
-  useEffect(() => {
-    axios.get(`${config.SERVER_LINK}/admin/category-products-count`)
-      .then(response => {
-        const labels = response.data.map(item => item.category);
-        const data = response.data.map(item => item.count);
-
-        setChartData(data);
-        setChartLabels(labels);
-      })
-      .catch(error => console.error(error));
-  }, []);
+  const [chartsData, setChartsData] = useState({
+    series: [],
+    chartData: [],
+    chartLabels: [],
+    removedSeries: [],
+    productQuantities: [],
+    productTypeData: [],
+    productTypeLabels: [],
+  });
 
   useEffect(() => {
-    axios.get(`${config.SERVER_LINK}/admin/daily-products-count`)
-      .then(response => {
-        const data = response.data.map(item => {
-          return {
-            x: item._id,
-            y: item.count
-          }
-        });
+    const fetchUrl = async (url, formatData) => {
+      const response = await axios.get(`${config.SERVER_LINK}${url}`);
+      return formatData(response.data);
+    };
 
-        setSeries([
-          {
-            name: "Products added",
-            data: data
-          }
-        ]);
-      })
-      .catch(error => console.error(error));
+    Promise.all([
+      fetchUrl('/admin/category-products-count', data => ({
+        chartData: data.map(item => item.count),
+        chartLabels: data.map(item => item.category),
+      })),
+      fetchUrl('/admin/daily-products-count', data => ({
+        series: [{ name: 'Products added', data: data.map(item => ({ x: item._id, y: item.count })) }],
+      })),
+      fetchUrl('/admin/removed-products-count', data => ({
+        removedSeries: [{ name: 'Products removed', data: data.map(item => ({ x: new Date(item.date).getTime(), y: item.count })) }],
+      })),
+      fetchUrl('/admin/total-products-quantity', data => ({
+        productQuantities: [{ name: 'Total Quantity', data: data.map(item => ({ x: new Date(item._id).getTime(), y: item.totalQuantity })) }],
+      })),
+      fetchUrl('/admin/products-type', data => ({
+        productTypeData: data.map(item => item.count),
+        productTypeLabels: data.map(item => item._id),
+      })),
+    ]).then((results) => {
+      setChartsData(results.reduce((acc, curr) => ({ ...acc, ...curr }), {}));
+    }).catch(console.error);
   }, []);
 
-  useEffect(() => {
-    axios.get(`${config.SERVER_LINK}/admin/removed-products-count`)
-      .then(response => {
-        console.log('Response:', response.data);
-        const data = response.data.map(item => {
-          return {
-            x: new Date(item.date).getTime(),
-            y: item.count
-          }
-        });
-        setRemovedSeries([
-          {
-            name: "Products removed",
-            data: data
-          }
-        ]);
-      })
-      .catch(error => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    axios.get(`${config.SERVER_LINK}/admin/total-products-quantity`)
-      .then(response => {
-        const data = response.data.map(item => {
-          return {
-            x: new Date(item._id).getTime(),
-            y: item.totalQuantity
-          }
-        });
-
-        setProductQuantities([
-          {
-            name: "Total Quantity",
-            data: data
-          }
-        ]);
-      })
-      .catch(error => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    axios.get(`${config.SERVER_LINK}/admin/products-type`)
-      .then(response => {
-        console.log("Products Type Response: ", response.data);
-        const labels = response.data.map(item => item._id);
-        const data = response.data.map(item => item.count);
-
-        setProductTypeData(data);
-        setProductTypeLabels(labels);
-      })
-      .catch(error => console.error(error));
-  }, []);
-
-
-  const addOptions = {
-    chart: {
-      type: 'bar',
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true
-      },
-      toolbar: {
-        show: false
-      }
-    },
-    xaxis: {
-      type: 'datetime'
-    },
-    yaxis: {
-      title: {
-        text: 'New Products'
-      },
-    },
-    dataLabels: {
-      enabled: false
-    },
-  };
-
-  const categoryOption = {
-    labels: chartLabels,
-    legend: {
-      position: 'right',
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-        }
-      }
-    }]
-  };
-
-  const removedOptions = {
-    chart: {
-      type: 'bar',
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true
-      },
-      toolbar: {
-        show: false
-      }
-    },
-    xaxis: {
-      type: 'datetime'
-    },
-    yaxis: {
-      title: {
-        text: 'Removed Products'
-      },
-    },
-    dataLabels: {
-      enabled: false
-    },
-  };
-  const quantityOptions = {
-    chart: {
-      type: 'bar',
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true
-      },
-      toolbar: {
-        show: false
-      }
-    },
-    xaxis: {
-      type: 'datetime'
-    },
-    yaxis: {
-      title: {
-        text: 'Product Quantity'
-      },
-    },
-    dataLabels: {
-      enabled: false
-    },
-  };
-
-  const typeOptions = {
-    labels: productTypeLabels,
-    legend: {
-      position: 'right',
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-        }
-      }
-    }]
-  };
-
+  const renderChart = (options, series, type) => (
+    series && series.length > 0 && <Chart options={options} series={series} type={type} />
+  );
 
   return (
     <>
@@ -212,28 +75,41 @@ const Admin = () => {
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Chart options={addOptions} series={series} type="bar" />
+            {renderChart({ ...defaultOptions, yaxis: { title: { text: 'New Products' } } }, chartsData.series, 'bar')}
           </Grid>
           <Grid item xs={4}>
             <Chart
-              options={categoryOption}
-              series={chartData}
+              options={{
+                labels: chartsData.chartLabels,
+                legend: { position: 'right' },
+                responsive: [{
+                  breakpoint: 480,
+                  options: { legend: { position: 'bottom' } }
+                }]
+              }}
+              series={chartsData.chartData}
               type="pie"
             />
           </Grid>
           <Grid item xs={4}>
-            {removedSeries && removedSeries.length > 0 &&
-              <Chart options={removedOptions} series={removedSeries} type="bar" />
-            }
+            {renderChart({ ...defaultOptions, yaxis: { title: { text: 'Removed Products' } } }, chartsData.removedSeries, 'bar')}
           </Grid>
           <Grid item xs={4}>
-            {productQuantities && productQuantities.length > 0 &&
-              <Chart options={quantityOptions} series={productQuantities} type="bar" />
-            }
+            {renderChart({ ...defaultOptions, yaxis: { title: { text: 'Product Quantity' } } }, chartsData.productQuantities, 'bar')}
           </Grid>
           <Grid item xs={4}>
-            <Chart options={typeOptions} series={productTypeData} type="pie" />
-
+            <Chart
+              options={{
+                labels: chartsData.productTypeLabels,
+                legend: { position: 'right' },
+                responsive: [{
+                  breakpoint: 480,
+                  options: { legend: { position: 'bottom' } }
+                }]
+              }}
+              series={chartsData.productTypeData}
+              type="pie"
+            />
           </Grid>
         </Grid>
       </Box>
