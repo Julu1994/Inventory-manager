@@ -1,5 +1,6 @@
 import express from 'express';
 import { ProductModel } from '../models/product.model.js';
+import { QuantityChangeModel } from '../models/quantityChange.model.js';
 import { RemovedProductModel } from '../models/removedProduct.model.js';
 export const router = express.Router();
 
@@ -20,7 +21,6 @@ export const getProducts = async (req, res) => {
 };
 
 export const addNewProducts = async (req, res) => {
-  console.log(req.user);
   try {
     const { name, details, price, quantity, location, catagory, type, url } =
       req.body;
@@ -185,9 +185,17 @@ export const inboundProducts = async (req, res) => {
       });
     }
 
-    existingProduct.quantity =
-      parseInt(existingProduct.quantity) + parseInt(quantity);
+    const oldQuantity = existingProduct.quantity;
+    const newQuantity = parseInt(existingProduct.quantity) + parseInt(quantity);
+    existingProduct.quantity = newQuantity;
     const savedProduct = await existingProduct.save();
+
+    const quantityChange = new QuantityChangeModel({
+      product: productID,
+      change: newQuantity - oldQuantity,
+    });
+
+    await quantityChange.save();
     res.json(savedProduct);
   } catch (error) {
     res.status(500).json({ errore: 'Error!! Something went worong' });

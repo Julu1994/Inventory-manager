@@ -10,6 +10,8 @@ const Admin = () => {
   const [chartData, setChartData] = useState([]);
   const [chartLabels, setChartLabels] = useState([]);
   const [removedSeries, setRemovedSeries] = useState([]);
+  const [productQuantities, setProductQuantities] = useState([]);
+
 
   useEffect(() => {
     axios.get(`${config.SERVER_LINK}/admin/category-products-count`)
@@ -47,16 +49,12 @@ const Admin = () => {
     axios.get(`${config.SERVER_LINK}/admin/removed-products-count`)
       .then(response => {
         console.log('Response:', response.data);
-
         const data = response.data.map(item => {
           return {
             x: new Date(item.date).getTime(),
             y: item.count
           }
         });
-
-        console.log('Data:', data);
-
         setRemovedSeries([
           {
             name: "Products removed",
@@ -66,6 +64,27 @@ const Admin = () => {
       })
       .catch(error => console.error(error));
   }, []);
+
+  useEffect(() => {
+    axios.get(`${config.SERVER_LINK}/admin/total-products-quantity`)
+      .then(response => {
+        const data = response.data.map(item => {
+          return {
+            x: new Date(item._id).getTime(),
+            y: item.totalQuantity
+          }
+        });
+
+        setProductQuantities([
+          {
+            name: "Total Quantity",
+            data: data
+          }
+        ]);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
 
 
   const addOptions = {
@@ -132,6 +151,30 @@ const Admin = () => {
       enabled: false
     },
   };
+  const quantityOptions = {
+    chart: {
+      type: 'bar',
+      zoom: {
+        type: 'x',
+        enabled: true,
+        autoScaleYaxis: true
+      },
+      toolbar: {
+        show: false
+      }
+    },
+    xaxis: {
+      type: 'datetime'
+    },
+    yaxis: {
+      title: {
+        text: 'Product Quantity'
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+  };
 
   return (
     <>
@@ -151,6 +194,11 @@ const Admin = () => {
           <Grid item xs={4}>
             {removedSeries && removedSeries.length > 0 &&
               <Chart options={removedOptions} series={removedSeries} type="bar" />
+            }
+          </Grid>
+          <Grid item xs={4}>
+            {productQuantities && productQuantities.length > 0 &&
+              <Chart options={quantityOptions} series={productQuantities} type="bar" />
             }
           </Grid>
         </Grid>
