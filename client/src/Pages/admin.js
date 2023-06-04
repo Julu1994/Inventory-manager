@@ -84,9 +84,6 @@ const Admin = () => {
       })
       .catch(error => console.error(error));
   }, []);
-
-
-
   const addOptions = {
     chart: {
       type: 'bar',

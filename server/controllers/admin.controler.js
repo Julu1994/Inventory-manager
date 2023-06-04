@@ -103,3 +103,22 @@ export const getProductsQuantity = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+export const backFill = async (req, res) => {
+  try {
+    let totalQuantity = 0;
+    const allProducts = await ProductModel.find({});
+    for (let product of allProducts) {
+      totalQuantity += product.quantity;
+    }
+    console.log(totalQuantity);
+
+    const startingPoint = new QuantityChangeModel({
+      product: req.id,
+      change: totalQuantity,
+      createdAt: new Date(),
+    });
+    await startingPoint.save();
+  } catch (error) {
+    res.status(500).json({ error: 'Error!! Something went wrong' });
+  }
+};
