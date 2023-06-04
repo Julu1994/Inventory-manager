@@ -11,6 +11,8 @@ const Admin = () => {
   const [chartLabels, setChartLabels] = useState([]);
   const [removedSeries, setRemovedSeries] = useState([]);
   const [productQuantities, setProductQuantities] = useState([]);
+  const [productTypeData, setProductTypeData] = useState([]);
+  const [productTypeLabels, setProductTypeLabels] = useState([]);
 
 
   useEffect(() => {
@@ -84,6 +86,21 @@ const Admin = () => {
       })
       .catch(error => console.error(error));
   }, []);
+
+  useEffect(() => {
+    axios.get(`${config.SERVER_LINK}/admin/products-type`)
+      .then(response => {
+        console.log("Products Type Response: ", response.data);
+        const labels = response.data.map(item => item._id);
+        const data = response.data.map(item => item.count);
+
+        setProductTypeData(data);
+        setProductTypeLabels(labels);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+
   const addOptions = {
     chart: {
       type: 'bar',
@@ -173,6 +190,22 @@ const Admin = () => {
     },
   };
 
+  const typeOptions = {
+    labels: productTypeLabels,
+    legend: {
+      position: 'right',
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        legend: {
+          position: 'bottom',
+        }
+      }
+    }]
+  };
+
+
   return (
     <>
       <Header />
@@ -197,6 +230,10 @@ const Admin = () => {
             {productQuantities && productQuantities.length > 0 &&
               <Chart options={quantityOptions} series={productQuantities} type="bar" />
             }
+          </Grid>
+          <Grid item xs={4}>
+            <Chart options={typeOptions} series={productTypeData} type="pie" />
+
           </Grid>
         </Grid>
       </Box>
