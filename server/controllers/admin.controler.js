@@ -1,4 +1,5 @@
 import { ProductModel } from '../models/product.model.js';
+import { QuantityChangeModel } from '../models/quantityChange.model.js';
 import { RemovedProductModel } from '../models/removedProduct.model.js';
 export const getProductCount = async (req, res) => {
   try {
@@ -78,7 +79,7 @@ export const getRemovedProductsPerDay = (req, res, next) => {
 };
 export const getProductsQuantity = async (req, res) => {
   try {
-    const data = await ProductModel.aggregate([
+    const data = await QuantityChangeModel.aggregate([
       {
         $group: {
           _id: {
@@ -88,7 +89,7 @@ export const getProductsQuantity = async (req, res) => {
             }
           },
           totalQuantity: {
-            $sum: "$quantity"
+            $sum: "$change"
           }
         }
       },

@@ -39,6 +39,13 @@ export const addNewProducts = async (req, res) => {
       user: req.user,
     });
     const savedProduct = await newProduct.save();
+    const quantityChange = new QuantityChangeModel({
+      product: savedProduct._id,
+      change: savedProduct.quantity,
+    });
+
+    await quantityChange.save();
+
     res.json(savedProduct);
   } catch (err) {
     res.status(500).send();
@@ -62,6 +69,12 @@ export const removeProducts = async (req, res) => {
         error: 'Error! Unauthorised action',
       });
     }
+    const quantityChange = new QuantityChangeModel({
+      product: productID,
+      change: -existedProduct.quantity,
+    });
+    await quantityChange.save();
+
     await ProductModel.findByIdAndDelete(productID);
 
     const removedProduct = new RemovedProductModel({
@@ -80,6 +93,7 @@ export const removeProducts = async (req, res) => {
     });
   }
 };
+
 
 export const editProducts = async (req, res) => {
   try {
@@ -109,6 +123,14 @@ export const editProducts = async (req, res) => {
       });
     }
 
+    const quantityDifference = quantity - existingProduct.quantity;
+
+    const quantityChange = new QuantityChangeModel({
+      product: productID,
+      change: quantityDifference
+    });
+    await quantityChange.save();
+
     existingProduct.name = name;
     existingProduct.details = details;
     existingProduct.price = price;
@@ -124,6 +146,7 @@ export const editProducts = async (req, res) => {
     res.status(500).json({ errore: 'Error!! Something went worong' });
   }
 };
+
 
 export const shrinkProducts = async (req, res) => {
   try {
@@ -151,12 +174,21 @@ export const shrinkProducts = async (req, res) => {
       });
     }
 
-    existingProduct.quantity =
-      parseInt(existingProduct.quantity) - parseInt(quantity);
+    const oldQuantity = existingProduct.quantity;
+    const newQuantity = parseInt(existingProduct.quantity) - parseInt(quantity);
+
+    existingProduct.quantity = newQuantity;
     const savedProduct = await existingProduct.save();
+    const quantityChange = new QuantityChangeModel({
+      product: productID,
+      change: newQuantity - oldQuantity,
+    });
+
+    await quantityChange.save();
+
     res.json(savedProduct);
   } catch (error) {
-    res.status(500).json({ errore: 'Error!! Something went worong' });
+    res.status(500).json({ error: 'Error!! Something went wrong' });
   }
 };
 export const inboundProducts = async (req, res) => {
