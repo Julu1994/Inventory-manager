@@ -53,7 +53,7 @@ const Admin = () => {
       fetchUrl('/admin/removed-products-count', data => ({
         removedSeries: [{ name: 'Products removed', data: data.map(item => ({ x: new Date(item.date).getTime(), y: item.count })) }],
       })),
-      fetchUrl('/admin/total-products-quantity', data => ({
+      fetchUrl('/admin/products-quantity', data => ({
         productQuantities: [{ name: 'Total Quantity', data: data.map(item => ({ x: new Date(item._id).getTime(), y: item.totalQuantity })) }],
       })),
       fetchUrl('/admin/products-type', data => ({

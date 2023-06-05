@@ -122,3 +122,57 @@ export const getProductsType = async (req, res) => {
   }
 };
 
+export const getTotalProductsQuantity = async (req, res) => {
+  try {
+    const data = await QuantityChangeModel.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: "%Y-%m-%d",
+              date: "$createdAt"
+            }
+          },
+          totalQuantity: {
+            $sum: "$change"
+          }
+        }
+      },
+      {
+        $sort: { "_id": 1 }
+      },
+      {
+        $group: {
+          _id: null,
+          quantities: {
+            $push: {
+              date: "$_id",
+              totalQuantity: "$totalQuantity"
+            }
+          }
+        }
+      },
+      {
+        $unwind: {
+          path: "$quantities",
+          includeArrayIndex: "quantities.date"
+        }
+      },
+      {
+        $group: {
+          _id: "$quantities.date",
+          totalQuantity: {
+            $sum: "$quantities.totalQuantity"
+          }
+        }
+      },
+      {
+        $sort: { "_id": 1 }
+      }
+    ]);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+};
