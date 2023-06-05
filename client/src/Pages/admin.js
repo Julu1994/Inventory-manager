@@ -60,6 +60,10 @@ const Admin = () => {
         productTypeData: data.map(item => item.count),
         productTypeLabels: data.map(item => item._id),
       })),
+      fetchUrl('/admin/total-products-quantity', data => ({
+        totalQuantities: [{ name: 'Total Quantities', data: data.map(item => ({ x: new Date(item._id).getTime(), y: item.totalQuantity })) }],
+      })),
+
     ]).then((results) => {
       setChartsData(results.reduce((acc, curr) => ({ ...acc, ...curr }), {}));
     }).catch(console.error);
@@ -96,6 +100,9 @@ const Admin = () => {
           </Grid>
           <Grid item xs={4}>
             {renderChart({ ...defaultOptions, yaxis: { title: { text: 'Product Quantity' } } }, chartsData.productQuantities, 'bar')}
+          </Grid>
+          <Grid item xs={4}>
+            {renderChart({ ...defaultOptions, yaxis: { title: { text: 'Total Quantities' } } }, chartsData.totalQuantities, 'bar')}
           </Grid>
           <Grid item xs={4}>
             <Chart

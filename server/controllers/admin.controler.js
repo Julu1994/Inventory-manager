@@ -140,37 +140,20 @@ export const getTotalProductsQuantity = async (req, res) => {
       },
       {
         $sort: { "_id": 1 }
-      },
-      {
-        $group: {
-          _id: null,
-          quantities: {
-            $push: {
-              date: "$_id",
-              totalQuantity: "$totalQuantity"
-            }
-          }
-        }
-      },
-      {
-        $unwind: {
-          path: "$quantities",
-          includeArrayIndex: "quantities.date"
-        }
-      },
-      {
-        $group: {
-          _id: "$quantities.date",
-          totalQuantity: {
-            $sum: "$quantities.totalQuantity"
-          }
-        }
-      },
-      {
-        $sort: { "_id": 1 }
       }
     ]);
-    res.json(data);
+
+    let cumulativeData = [];
+    let total = 0;
+    for (let item of data) {
+      total += item.totalQuantity;
+      cumulativeData.push({
+        _id: item._id,
+        totalQuantity: total
+      });
+    }
+
+    res.json(cumulativeData);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
