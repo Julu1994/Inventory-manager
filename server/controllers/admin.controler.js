@@ -1,6 +1,14 @@
 import { ProductModel } from '../models/product.model.js';
 import { QuantityChangeModel } from '../models/quantityChange.model.js';
 import { RemovedProductModel } from '../models/removedProduct.model.js';
+
+/**
+ * Counts the total number of products in the database.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getProductCount = async (req, res) => {
   try {
     const productCount = await ProductModel.countDocuments({});
@@ -10,6 +18,13 @@ export const getProductCount = async (req, res) => {
   }
 };
 
+/**
+ * Counts newly added products each day.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getDailyProductCount = async (req, res) => {
   try {
     const dailyProductCount = await ProductModel.aggregate([
@@ -28,6 +43,13 @@ export const getDailyProductCount = async (req, res) => {
   }
 };
 
+/**
+ * Counts products by category.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getProductsCountByCategory = async (req, res) => {
   try {
     const result = await ProductModel.aggregate([
@@ -53,6 +75,13 @@ export const getProductsCountByCategory = async (req, res) => {
   }
 }
 
+/**
+ * Counts removed products from database showing the date as well.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getRemovedProductsPerDay = (req, res, next) => {
   RemovedProductModel.aggregate([
     {
@@ -77,6 +106,14 @@ export const getRemovedProductsPerDay = (req, res, next) => {
       res.status(500).json({ error: err });
     });
 };
+
+/**
+ * Counts products inbound/quantity on daily basis. 
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getProductsQuantity = async (req, res) => {
   try {
     const data = await QuantityChangeModel.aggregate([
@@ -103,6 +140,14 @@ export const getProductsQuantity = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+/**
+ * Counts products type - regular and discounted products.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getProductsType = async (req, res) => {
   try {
     const data = await ProductModel.aggregate([
@@ -121,7 +166,13 @@ export const getProductsType = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
-
+/**
+ * Counts total products quantity on daily basis.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export const getTotalProductsQuantity = async (req, res) => {
   try {
     const data = await QuantityChangeModel.aggregate([
