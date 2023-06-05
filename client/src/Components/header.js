@@ -108,9 +108,16 @@ const Header = () => {
                             </Button>
                         </Link>
                     ) : (
-                        <Button size="small" color="inherit" onClick={logout}>
-                            Logout
-                        </Button>
+                        <>
+                            <Link to={"/admin"} style={{ color: "#FFFFFF" }}>
+                                <Button size="small" color="inherit">
+                                    Admin
+                                </Button>
+                            </Link>
+                            <Button size="small" color="inherit" onClick={logout}>
+                                Logout
+                            </Button>
+                        </>
                     )}
                 </Toolbar>
             </AppBar>

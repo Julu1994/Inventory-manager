@@ -4,6 +4,7 @@ import Header from '../Components/header';
 import Chart from 'react-apexcharts';
 import axios from 'axios';
 import { config } from '../config';
+import AdminHeader from '../Components/adminHeader';
 
 const defaultOptions = {
   chart: {
@@ -75,7 +76,7 @@ const Admin = () => {
 
   return (
     <>
-      <Header />
+      <AdminHeader />
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={4}>
