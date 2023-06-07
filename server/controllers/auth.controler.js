@@ -93,6 +93,7 @@ export const login = async (req, res) => {
     const jsonToken = jwt.sign(
       {
         id: existingUser._id,
+        role: existingUser.role
       },
       Key
     );
