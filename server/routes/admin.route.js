@@ -1,5 +1,4 @@
 import express from 'express';
-import { auth } from '../middleware/auth.js';
 import {
   getDailyProductCount,
   getProductCount,
@@ -9,6 +8,7 @@ import {
   getRemovedProductsPerDay,
   getTotalProductsQuantity,
 } from '../controllers/admin.controler.js';
+import { auth } from '../middleware/auth.js';
 export const adminRoutes = express.Router();
 
 

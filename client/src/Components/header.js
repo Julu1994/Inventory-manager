@@ -33,7 +33,7 @@ const Header = () => {
     const logout = async () => {
         try {
             await axios.get(`${config.SERVER_LINK}/auth/logout`);
-            dispatch(userActions.notUser());
+            dispatch(userActions.clearUser());
             navigate("/login");
             Notify.success("User logout");
         } catch {

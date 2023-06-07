@@ -15,7 +15,7 @@ import Admin from "./Pages/admin";
 
 axios.defaults.withCredentials = true;
 function App() {
-    const user = useSelector((state) => state.user.user);
+    const user = useSelector((state) => state.user.isAuthenticated);
     UserId();
     return (
         <Router>

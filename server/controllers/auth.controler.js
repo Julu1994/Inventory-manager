@@ -43,6 +43,7 @@ export const signup = async (req, res) => {
     const token = jwt.sign(
       {
         id: addingUser._id,
+        role: addingUser.role,
       },
       secretKey
     );

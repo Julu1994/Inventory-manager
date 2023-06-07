@@ -1,18 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user: false,
+    user: {
+        isAuthenticated: false,
+    }
 };
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        isUser(state) {
-            state.user = true;
+        isUser: (state) => {
+            state.user.isAuthenticated = true;
         },
-        notUser(state) {
-            state.user = false;
+        clearUser: (state) => {
+            state.user.isAuthenticated = false;
         },
     },
 });

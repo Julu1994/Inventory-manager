@@ -30,7 +30,7 @@ const Login = () => {
     const getUser = async () => {
         const user = await axios.get(`${config.SERVER_LINK}/auth/loginedIn`);
         if (user.data.id) {
-            dispatch(userActions.isUser());
+            dispatch(userActions.isUser(user.data.role));
         }
     };
 
