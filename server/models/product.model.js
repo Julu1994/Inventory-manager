@@ -1,28 +1,35 @@
 import mongoose from 'mongoose';
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const productScema = new mongoose.Schema(
+const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      required: true,
+      index: true,
     },
     details: {
       type: String,
     },
     price: {
       type: Number,
+      required: true,
     },
     quantity: {
       type: Number,
+      required: true,
     },
     location: {
       type: String,
     },
-    catagory: {
+    category: {
       type: String,
+      index: true,
     },
     type: {
       type: String,
+      required: true,
+      enum: ['regular', 'discount', 'type3'],
     },
     url: {
       type: String,
@@ -37,4 +44,4 @@ const productScema = new mongoose.Schema(
   }
 );
 
-export const ProductModel = mongoose.model('model', productScema);
+export const ProductModel = mongoose.model('model', productSchema);
