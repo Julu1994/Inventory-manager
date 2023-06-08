@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/auth.model.js';
+import { NewUser } from '../models/newUser.model.js';
 export const authRouter = express.Router();
 
 /**
@@ -37,6 +38,7 @@ export const signup = async (req, res) => {
       name,
       email,
       H_password,
+      role: "admin"
     });
     const addingUser = await newUser.save();
     const secretKey = process.env.SE_KEY;
@@ -61,6 +63,50 @@ export const signup = async (req, res) => {
   }
 };
 
+/**
+ * Handles crating new user.
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
+export const createNewUser = async (req, res) => {
+  try {
+    const { name, email, password, repeatPassword } = req.body;
+    if (!name || !email || !password || !repeatPassword)
+      return res.status(400).json({
+        errorMessage: 'Required field is missing',
+      });
+    if (password.length < 6)
+      return res.status(400).json({
+        errorMessage: 'At least 6 charachters are required',
+      });
+    if (password !== repeatPassword)
+      return res.status(400).json({
+        errorMessage: "Password hasn't been verified",
+      });
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail)
+      return res.status(400).json({
+        errorMessage: 'This email has already been used to create an account',
+      });
+    const salt = await bcrypt.genSalt();
+    const H_password = await bcrypt.hash(password, salt);
+    const newUser = new NewUser({
+      name,
+      email,
+      H_password,
+      role: "user",
+      accountId: req.user
+    });
+    await newUser.save();
+
+  } catch (error) {
+    res.status(500).json({
+      errorMessage: 'Error! Something went went wrong!',
+    });
+  }
+};
 /**
  * Handles user login.
  * @async

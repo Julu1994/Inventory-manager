@@ -18,13 +18,16 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['user', 'admin'],
-      default: 'admin'
+      enum: ['user'],
+      default: 'user'
     },
     accountId: {
       type: String,
     }
   },
+  {
+    timestamps: true,
+  }
 );
 userSchema.methods.toJSON = function () {
   var obj = this.toObject();
@@ -32,4 +35,4 @@ userSchema.methods.toJSON = function () {
   return obj;
 }
 
-export const User = mongoose.model('user', userSchema);
+export const NewUser = mongoose.model('new-user', userSchema);
