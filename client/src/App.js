@@ -11,6 +11,7 @@ import Warning from "./Pages/warning";
 import Discount from "./Pages/discount";
 import { UserId } from "./Components/getUser";
 import Admin from "./Pages/admin";
+import AdminUser from "./Pages/user.admin";
 
 
 axios.defaults.withCredentials = true;
@@ -31,7 +32,7 @@ function App() {
                 />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/admin" element={<Admin />} />
-
+                <Route path="/user-admin" element={<AdminUser />} />
             </Routes>
         </Router>
     );
