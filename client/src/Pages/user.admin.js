@@ -5,6 +5,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import React from "react";
 import { config } from "../config";
 import { Box } from "@mui/system";
+import AdminHeader from "../Components/adminHeader";
 
 const AdminUser = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -16,6 +17,7 @@ const AdminUser = () => {
   return (
     <div>
       <Box>
+        <AdminHeader />
         <Grid container spacing={2} style={{
           minHeight: "100vh",
           display: "flex",
